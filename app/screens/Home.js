@@ -3,7 +3,7 @@ import { StyleSheet, Text, View,StatusBar,Image } from 'react-native'
 import {Colors} from '../../app/constants'
 
 
-const Splash = () => {
+const Home = () => {
 
     
     return (
@@ -14,6 +14,6 @@ const Splash = () => {
     )
 }
 
-export default Splash
+export default Home
 
 const styles = StyleSheet.create({})

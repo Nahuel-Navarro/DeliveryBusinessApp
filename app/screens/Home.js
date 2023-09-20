@@ -3,9 +3,11 @@ import { StyleSheet, Text, View,StatusBar,Image } from 'react-native'
 import {Colors} from '../../app/constants'
 
 
-const Home = () => {
+const Home = ({navigation}) => {
 
-    
+    setTimeout(()=>{
+        navigation.replace('Clientes')
+    },3000)
     return (
         <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:Colors.white}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />

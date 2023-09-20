@@ -19,19 +19,19 @@ export const usuarios = [
     },
     {
         'id': '003',
-        'mail':'nacho@gmail.com', 
-        'contraseña':'Nacho', 
+        'mail':'nahuel@gmail.com', 
+        'contraseña':'Nahuel', 
         'rol':'Vendedor',
-        'nombre':'Nacho',
+        'nombre':'Nahuel',
         'telefono':'',
         'direccion':''
     },
     {
         'id': '004',
-        'mail':'nahuel@gmail.com', 
-        'contraseña':'Nahuel', 
+        'mail':'nacho@gmail.com', 
+        'contraseña':'Nacho', 
         'rol':'Vendedor',
-        'nombre':'Nahuel',
+        'nombre':'Nacho',
         'telefono':'',
         'direccion':''
     },

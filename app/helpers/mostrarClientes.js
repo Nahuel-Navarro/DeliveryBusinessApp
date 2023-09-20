@@ -1,24 +1,37 @@
 import React from 'react'
 import { StyleSheet, Text, View,StatusBar,Image, ScrollView } from 'react-native'
 import {Colors} from '../../app/constants'
-import { clientes } from '../data/clientes'
-import { clienteByID } from '../helpers/clienteByID'
-import clienteCard from '../helpers/clienteCard'
 
 
-const Clientes = (id) => {
-  const cli = clienteByID(id);
+const mostrarClientes = () => {
+
     
     return (
         <ScrollView style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:Colors.white}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
             
-            {cli.map(cli => (
-              clienteCard({...cli})
-            ))}
+            <View>
+              {/* Datos */}
+            </View>
+              
+            <View>
+              {/* Registrar visita */}
+            </View>
+
+            <View>
+              {/* Deuda */}
+            </View>
+
+            <View>
+              {/* Historial */}
+            </View>
+
+            <View>
+              {/* Productos mas pedidos */}
+            </View>
             
         </ScrollView>
     )
 }
 
-export default Clientes
+export default mostrarClientes

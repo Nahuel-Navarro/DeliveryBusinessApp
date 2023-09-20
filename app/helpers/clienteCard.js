@@ -1,16 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Text, View } from 'react-native'
 import { Colors } from '../constants'
 
-export const clienteCard = ({id,nombre,direccion,mail,telefono,iva,cuit,condvent}) => {
+
+
+export const ClienteCard = ({id,nombre,direccion}) => {
+    
   return (
-    <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
-        <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+    
+    <View style={{flexDirection:'column',paddingTop:20}}>
+
+        <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',backgroundColor:'#ededed',width:'100%',borderRadius:10,height:60,paddingLeft:20,marginTop:20}}>
             <Text style={{fontFamily:'OpenSans-Bold',fontSize:20,color:Colors.black}}>{id}</Text>
             <Text style={{fontFamily:'OpenSans-Bold',fontSize:20,color:Colors.black}}>{nombre}</Text>
         </View>
+
         <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>{direccion}</Text>
-        <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+        
+        <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',backgroundColor:'#ededed',width:'100%',borderRadius:10,height:60,paddingLeft:20,marginTop:20}}>
             <Text style={{fontFamily:'OpenSans-Regular',fontSize:12,color:Colors.black}}>comprobantes</Text>
             <Text style={{fontFamily:'OpenSans-Regular',fontSize:12,color:Colors.black}}>deuda</Text>
         </View>
@@ -18,4 +25,4 @@ export const clienteCard = ({id,nombre,direccion,mail,telefono,iva,cuit,condvent
     </View>
   )
 }
-export default clienteCard
+export default ClienteCard

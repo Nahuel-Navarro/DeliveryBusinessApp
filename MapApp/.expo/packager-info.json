@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19000,
+  "expoServerNgrokUrl": "https://pg-h99.anonymous.mapapp.exp.direct",
+  "packagerNgrokUrl": "https://pg-h99.anonymous.mapapp.exp.direct",
+  "ngrokPid": 10912,
   "packagerPid": null,
   "webpackServerPort": null
 }

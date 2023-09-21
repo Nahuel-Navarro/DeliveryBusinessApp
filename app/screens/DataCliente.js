@@ -1,13 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View,StatusBar,Image, ScrollView } from 'react-native'
-import {Colors} from '../../app/constants'
+import { StatusBar, ScrollView, View, Image } from 'react-native'
+import { clienteByID } from '../helpers/clienteByID'
+import ClienteCard from './ClienteCard'
 
 
-const mostrarClientes = () => {
 
+
+
+const DataCliente = () => {
+
+  
     
     return (
-        <ScrollView style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:Colors.white}} >
+        <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#000',paddingHorizontal:'4%'}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
             
             <View>
@@ -34,4 +39,4 @@ const mostrarClientes = () => {
     )
 }
 
-export default mostrarClientes
+export default DataCliente

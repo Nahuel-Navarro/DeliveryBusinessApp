@@ -6,8 +6,9 @@ import { getUsuarioByMail } from "./getUsuarioByMail";
 export const validateLogin = (formData, navigation) => {
     const usu = getUsuarioByMail( formData ); 
         if (usu!=undefined) {
-            navigation.navigate("Home");
-            setVendedor(usu.id);
+            const vendedor = usu.id;
+            navigation.navigate("Home", {usu : usu});
+            
         } else {
             alert('Acceso invalido');
         }

@@ -20,7 +20,7 @@ const Onboarding = ({navigation}) => {
                 {/* Text part */}
                 <View style={{flex:1,flexDirection:'column',justifyContent:'flex-start',alignItems:'center',backgroundColor:'#fff'}} >
                     <Text style={{fontFamily:'OpenSans-Bold',color:Colors.black,fontSize:30}} >MultiSoft</Text>
-                    <Text style={{maxWidth:'50%', fontFamily:'OpenSans-Medium',color:"#999",fontSize:14, textAlign:'center',paddingTop:10}} >?????</Text>
+                    <Text style={{maxWidth:'50%', fontFamily:'OpenSans-Medium',color:"#999",fontSize:14, textAlign:'center',paddingTop:10}} >Gestión de pedidos y entregas.</Text>
                 </View>   
 
                 {/* Button */}

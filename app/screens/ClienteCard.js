@@ -6,11 +6,11 @@ import { useNavigation } from 'expo-router'
 
 
 export const ClienteCard = ({id,nombre,direccion}) => {
-    const navigation = useNavigation();
+
   return (
 
-        <View>
-          <View style={{flexDirection:'row',paddingTop:10}}>
+      <View>
+        <View style={{flexDirection:'row',paddingTop:10}}>
             <Text style={{fontFamily:'OpenSans-Bold',fontSize:20,color:Colors.black}}>{id}</Text>
             <Text style={{fontFamily:'OpenSans-Bold',fontSize:20,color:Colors.black,marginHorizontal:5}}>·</Text>
             <Text style={{fontFamily:'OpenSans-Bold',fontSize:20,color:Colors.black}}>{nombre}</Text>
@@ -23,7 +23,7 @@ export const ClienteCard = ({id,nombre,direccion}) => {
             <Text style={{fontFamily:'OpenSans-Regular',fontSize:12,color:Colors.black,marginHorizontal:5}}>·</Text>
             <Text style={{fontFamily:'OpenSans-Regular',fontSize:12,color:Colors.black}}>deuda</Text>
         </View>
-        </View>
+      </View>
         
 
         

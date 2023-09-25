@@ -1,5 +1,4 @@
 
-import { setVendedor } from "../screens/Clientes";
 import { getUsuarioByMail } from "./getUsuarioByMail";
 
 
@@ -15,4 +14,4 @@ export const validateLogin = (formData, navigation) => {
     
 }
 
-export default validateLogin
+export default validateLogin;

@@ -1,11 +1,4 @@
-import React from 'react'
-import { StatusBar, ScrollView, View, Image, Text, TouchableOpacity } from 'react-native'
-import { clienteByID } from '../helpers/clienteByID'
-import ClienteCard from './ClienteCard'
-
-
-
-
+import { StatusBar, ScrollView, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const DataCliente = ({route}) => {
 
@@ -19,57 +12,70 @@ const DataCliente = ({route}) => {
             <View>
                 {/* Datos */}
                 <View style={{flexDirection:'row',paddingTop:10}}>
-                    <Text style={{fontFamily:'OpenSans-Bold',fontSize:24,color:Colors.black}}>{cli.id}</Text>
-                    <Text style={{fontFamily:'OpenSans-Bold',fontSize:24,color:Colors.black,marginHorizontal:5}}>·</Text>
-                    <Text style={{fontFamily:'OpenSans-Bold',fontSize:24,color:Colors.black}}>{cli.nombre}</Text>
+                    <Text style={styles.texttitle}>{cli.id}</Text>
+                    <Text style={styles.texttitle}> · </Text>
+                    <Text style={styles.texttitle}>{cli.nombre}</Text>
                 </View>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:19,color:Colors.black}}>{cli.direccion}</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>· Mail: {cli.mail}</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>· Tel: {cli.telefono}</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>· IVA: {cli.iva}</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>· CUIT: {cli.cuit}</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:16,color:Colors.black}}>· Cond. venta: {cli.codvent}</Text>
+                <Text style={styles.texttitle2}>{cli.direccion}</Text>
+                <Text style={styles.textmid}>· Mail: {cli.mail}</Text>
+                <Text style={styles.textmid}>· Tel: {cli.telefono}</Text>
+                <Text style={styles.textmid}>· IVA: {cli.iva}</Text>
+                <Text style={styles.textmid}>· CUIT: {cli.cuit}</Text>
+                <Text style={styles.textmid}>· Cond. venta: {cli.codvent}</Text>
             </View>
               
-            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,paddingHorizontal:40,marginTop:10,marginBottom:10}}>
+            <View style={styles.viewrow}>
                 {/* Registrar visita */}
-                <TouchableOpacity style={{justifyContent:'space-between',alignItems:'center'}}>
-                    <Image source={require('../assets/images/check.png')} style={{width:50, height:50}}/>
-                    <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black}}>Pedido</Text>
+                <TouchableOpacity style={styles.btn}>
+                    <Image source={require('../assets/images/check.png')} style={styles.img}/>
+                    <Text style={styles.textsmall}>Pedido</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{justifyContent:'space-between',alignItems:'center'}}>
-                    <Image source={require('../assets/images/no.png')} style={{width:50, height:50}}/>
-                    <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black}}>No Compra</Text>
+
+                <TouchableOpacity style={styles.btn} onPress={() => {alert('¿Registrar visita?', )}}>
+                    <Image source={require('../assets/images/no.png')} style={styles.img}/>
+                    <Text style={styles.textsmall}>No Compra</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{justifyContent:'space-between',alignItems:'center'}}>
-                    <Image source={require('../assets/images/pago.png')} style={{width:50, height:50}}/>
-                    <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black}}>Pago</Text>
+
+                <TouchableOpacity style={styles.btn}>
+                    <Image source={require('../assets/images/pago.png')} style={styles.img}/>
+                    <Text style={styles.textsmall}>Pago</Text>
                 </TouchableOpacity>
             </View>
 
-            <View style={{flexDirection:'column',justifyContent:'start',alignItems:'start',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,marginTop:10,marginBottom:10}}>
+            <View style={styles.viewcolumn}>
                 {/* Deuda */}
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:18,color:Colors.black, paddingVertical:5}}>Cuenta Corriente</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black, paddingVertical:5}}>$0.00</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black}}>Saldo total</Text>
+                <Text style={styles.texttitle2}>Cuenta Corriente</Text>
+                <Text style={styles.textsmall}>$0.00</Text>
+                <Text style={styles.textsmall}>Saldo total</Text>
 
             </View>
 
-            <View style={{flexDirection:'column',justifyContent:'start',alignItems:'start',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,marginTop:10,marginBottom:10}}>
+            <View style={styles.viewcolumn}>
                 {/* Historial */}
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:18,color:Colors.black, paddingVertical:5}}>Historial de Visitas</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black, paddingVertical:5}}>0 Visitas</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black, paddingVertical:5}}>0 Pedidos</Text>
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:14,color:Colors.black, paddingTop:5}}>0 No Compras</Text>
+                <Text style={styles.texttitle2}>Historial de Visitas</Text>
+                <Text style={styles.textsmall}>0 Visitas</Text>
+                <Text style={styles.textsmall}>0 Pedidos</Text>
+                <Text style={styles.textsmall}>0 No Compras</Text>
             </View>
 
-            <View style={{flexDirection:'column',justifyContent:'start',alignItems:'start',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,marginTop:10,marginBottom:10}}>
+            <View style={styles.viewcolumn}>
                 {/* Productos mas pedidos */}
-                <Text style={{fontFamily:'OpenSans-SemiBold',fontSize:18,color:Colors.black, paddingVertical:5}}>Productos más pedidos</Text>
+                <Text style={styles.texttitle2}>Productos más pedidos</Text>
             </View>
             
         </ScrollView>
     )
 }
 
-export default DataCliente
+export default DataCliente;
+
+const styles = StyleSheet.create({
+    texttitle: {fontFamily:'OpenSans-Bold',fontSize:24,color:'#000'},
+    texttitle2: {fontFamily:'OpenSans-SemiBold',fontSize:18,color:'#000', paddingVertical:5},
+    textmid: {fontFamily:'OpenSans-SemiBold',fontSize:16,color:'#000'},
+    textsmall: {fontFamily:'OpenSans-SemiBold',fontSize:14,color:'#000', paddingVertical:5},
+    img: {width:50, height:50},
+    btn: {justifyContent:'space-between',alignItems:'center'},
+    viewcolumn: {flexDirection:'column',justifyContent:'start',alignItems:'start',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,marginVertical:10},
+    viewrow: {flexDirection:'row',justifyContent:'space-between',alignItems:'center',backgroundColor:'#ededed',width:'100%',borderRadius:10,padding:20,paddingHorizontal:40,marginVertical:10}
+  });

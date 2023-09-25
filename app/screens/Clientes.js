@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { StatusBar, ScrollView, TouchableOpacity, View } from 'react-native'
-import { clienteByID } from '../helpers/clienteByID'
-import ClienteCard from './ClienteCard'
+import { useEffect, useState } from 'react';
+import { StatusBar, ScrollView, TouchableOpacity } from 'react-native';
+import { clienteByID } from '../helpers/clienteByID';
+import ClienteCard from './ClienteCard';
 
 
-
-// let vendedor = 0;
-// export const setVendedor = (valor) => {
-//     vendedor = valor;
-// }
 
 const Clientes = ({navigation , route}) => {
 
@@ -17,10 +12,8 @@ const Clientes = ({navigation , route}) => {
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
-    // Lógica para obtener los clientes y actualizar el estado
     const cli = clienteByID(vendedor);
-    setClientes(cli);
-  }, [vendedor]);
+    setClientes(cli);}, [vendedor]);
     
     return (
       
@@ -29,7 +22,7 @@ const Clientes = ({navigation , route}) => {
             
                 {clientes.map(cli => (
                   
-                  <TouchableOpacity key={cli.id} style={{flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start',backgroundColor:'#ededed',width:'100%',borderRadius:10,paddingLeft:20,marginTop:10,marginBottom:10,paddingBottom:20}} onPress={() => {navigation.navigate("DataCliente", {cli:cli})}}>
+                  <TouchableOpacity key={cli.id} style={{flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start',backgroundColor:'#ededed',width:'100%',borderRadius:10,paddingLeft:20,paddingBottom:20,marginVertical:10}} onPress={() => {navigation.navigate("DataCliente", {cli:cli})}}>
                        <ClienteCard  {...cli}/>
                   </TouchableOpacity>
                   
@@ -40,4 +33,4 @@ const Clientes = ({navigation , route}) => {
     )
 }
 
-export default Clientes
+export default Clientes;

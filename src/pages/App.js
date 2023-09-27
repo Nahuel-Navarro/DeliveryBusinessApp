@@ -3,11 +3,14 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal';
 import { LinearGradient } from 'expo-linear-gradient';
-import { clientesData } from './clientesEj';
+import { clientesData } from './landingIndex/clientesEj';
+import { useNavigation} from 'expo-router';
+import { NavigationContainer } from '@react-navigation/native';
+import Index from '../routes';
 
 
-
-export default function App(){
+const App=()=>{
+  //const navigation = useNavigation();
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -44,13 +47,13 @@ export default function App(){
       <View style={style.container}>
         <TouchableOpacity style={style.buttonMenu} onPress={toggleModal}>
           <Image
-            source={require("../../assets/menu(1).png")}
+            source={require("../assets/menu(1).png")}
             style={style.buttonMenuImg}
             
           />
         </TouchableOpacity>
         <Image
-          source={require("../../assets/MS_bco.png")}
+          source={require("../assets/MS_bco.png")}
           style={style.Logo}
           
         /> 
@@ -68,14 +71,14 @@ export default function App(){
           <View style={style.modalMenu}>
               <View style={style.menuUpLogo}>  
                 <Image
-                  source={require('../../assets/MS_bco.png')}
+                  source={require('../assets/MS_bco.png')}
                   style={style.menuLogo}
                 />
               </View>
               <TouchableOpacity onPress={() => console.log('Clientes')} 
                 style={style.optionBottom}>
                     <Image
-                      source={require('../../assets/cliente.png')}
+                      source={require('../assets/cliente.png')}
                       style={style.imgOptionMenu}
                     />
                 <Text style={style.optionText}>Clientes</Text>
@@ -83,16 +86,16 @@ export default function App(){
               <TouchableOpacity onPress={() => console.log('Entregas')} 
                 style={style.optionBottom}>
                 <Image
-                  source={require('../../assets/entrega-de-pedidos.png')}
+                  source={require('../assets/entrega-de-pedidos.png')}
                   style={style.imgOptionMenu}
                 />                 
                 <Text style={style.optionText}>Pedidos totales</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('Ventas')} 
+              <TouchableOpacity 
                 style={style.optionBottom}
                 >
                 <Image
-                  source={require('../../assets/carrito-de-supermercado.png')}
+                  source={require('../assets/carrito-de-supermercado.png')}
                   style={style.imgOptionMenu}
                 />  
                 <Text style={style.optionText}>Articulos</Text>
@@ -101,7 +104,7 @@ export default function App(){
                 style={style.optionBottom}
               >
                 <Image
-                  source={require('../../assets/whatsapp.png')}
+                  source={require('../assets/whatsapp.png')}
                   style={style.imgOptionMenu}
                 />  
                 <Text style={style.optionText}>Contacto</Text>
@@ -124,7 +127,7 @@ export default function App(){
             >
               <Text style={style.cardTitle}>{cliente.nombre}</Text>
               <TouchableOpacity style={style.infoCliente}>
-                <Image source={require('../../assets/info.png')}/>
+                <Image source={require('../assets/info.png')}/>
                 
               </TouchableOpacity>
               {expandedStates[index] && (
@@ -154,7 +157,7 @@ export default function App(){
                         disabled={cliente.estado}
                       >
                         <Text style={style.textEntregar}>Entregar</Text>
-                        <Image source={require('../../assets/orden(1).png')} />
+                        <Image source={require('../assets/orden(1).png')} />
                       </TouchableOpacity>
                   </View>
                 </View>
@@ -165,7 +168,7 @@ export default function App(){
         {todosEntregados && (
           <View style={style.viewPedidosCompletados}>
             <Image
-                source={require('../../assets/repartidora(1).png')}
+                source={require('../assets/repartidora(1).png')}
                 style={style.imgRepartoCompletado}
             />
             <Text style={style.todosEntregadosMessage}>Has entregado todos los pedidos!!</Text>
@@ -336,3 +339,5 @@ const style = StyleSheet.create ({
     
   }
 })
+
+export default App;

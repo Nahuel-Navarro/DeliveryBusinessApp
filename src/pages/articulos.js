@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native';
 
-export function Articulos(){
+const articulos = () =>{
     return(
         <View>
             <Text>OLI   </Text>
@@ -11,3 +11,5 @@ export function Articulos(){
 const style = StyleSheet.create({
     
 })
+
+export default articulos;

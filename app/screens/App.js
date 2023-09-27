@@ -3,13 +3,13 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal';
 import { LinearGradient } from 'expo-linear-gradient';
-import { clientesData } from '../data/clientesEj';
+import { clientes } from '../data/clientes';
 // import { useNavigation} from 'expo-router';
 // import { NavigationContainer } from '@react-navigation/native';
-import Index from '..';
+import Index from '../index';
 
 
-const App=()=>{
+const App=({navigation})=>{
   //const navigation = useNavigation();
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
@@ -27,12 +27,12 @@ const App=()=>{
     setExpandedStates(newExpandedStates);
   };
   //FILTRO
-  const [idToFilter, setIdToFilter] = useState(2);
+  const vendedorId = '001';
   const [filteredClientes, setFilteredClientes] = useState([]);
   useEffect(() => {
-    const filterData = clientesData.filter((cliente) => cliente.id === idToFilter);
+    const filterData = clientes.filter((cliente) => cliente.vendedor === vendedorId);
     setFilteredClientes(filterData);
-  }, [idToFilter]);
+  }, [vendedorId]);
   const eliminarTarjeta = (i) => {
     const updatedClientes = [...filteredClientes];
     updatedClientes.splice(i, 1);//Lo borra
@@ -42,7 +42,6 @@ const App=()=>{
   //Este lo que va a hacer es verificar si todos estan entregados
   const todosEntregados = filteredClientes.every((cliente) => cliente.estado);
   return(
-    <SafeAreaProvider>
       <ScrollView>
       <View style={style.container}>
         <TouchableOpacity style={style.buttonMenu} onPress={toggleModal}>
@@ -75,7 +74,7 @@ const App=()=>{
                   style={style.menuLogo}
                 />
               </View>
-              <TouchableOpacity onPress={() => console.log('Clientes')} 
+              <TouchableOpacity on_press={()=>navigation.navigate("Clientes")} 
                 style={style.optionBottom}>
                     <Image
                       source={require('../assets/cliente.png')}
@@ -100,7 +99,7 @@ const App=()=>{
                 />  
                 <Text style={style.optionText}>Articulos</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('Direcciones')} 
+              <TouchableOpacity on_press={()=>navigation.navigate("Articulos")} 
                 style={style.optionBottom}
               >
                 <Image
@@ -176,7 +175,6 @@ const App=()=>{
          )}
       </View>
       </ScrollView>
-    </SafeAreaProvider>
   );
 }
 
@@ -184,8 +182,7 @@ const style = StyleSheet.create ({
   container:{
     width: "100%",
     height:50,
-    marginTop:40,
-    backgroundColor:"#187194",
+    backgroundColor: "#0e485e",
     gap:70,
     flexDirection:'row',
     justifyContent:'flex-start',
@@ -201,7 +198,7 @@ const style = StyleSheet.create ({
     width:26
   },
   div1pedidosText:{
-    color:"#187194",
+    color:"#0e485e",
     alignContent:'center',
     justifyContent:'center',
     fontSize:25,
@@ -253,7 +250,7 @@ const style = StyleSheet.create ({
   cardsButton: {
     width: "90%",
     padding: 20,
-    backgroundColor: '#187194',
+    backgroundColor: '#0e485e',
     borderRadius: 10,
     marginBottom:10
   },
@@ -326,7 +323,7 @@ const style = StyleSheet.create ({
     height:300
   },
   menuUpLogo:{
-    backgroundColor:'#187194',
+    backgroundColor:'#0e485e',
     width:'100%',
     height:'15%',
     justifyContent:'center'

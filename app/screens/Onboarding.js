@@ -6,7 +6,7 @@ import Buttons from '../components/Buttons';
 const Onboarding = ({navigation}) => {
     return (
         <View style={{flex:1,backgroundColor:'#fff'}} >
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />
             
             <View style={{flex:3,flexDirection:"column",backgroundColor:'#fff'}} >
                 <ImageBackground source={require('../assets/Messenger-cuate.png')}

@@ -14,7 +14,7 @@ const Login = ({navigation}) => {
     })
     return (
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff'}} >
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />
             
                 <View style={{flexDirection:'colum',justifyContent:'flex-start',alignItems:'center', backgroundColor:'#0e485e', width:'100%', flex:1, height:120}}>
                     <Image source={require('../assets/MS_bco.png')} style={{width:300, height:50}}/>

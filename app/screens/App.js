@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal';
-import { LinearGradient } from 'expo-linear-gradient';
 import { clientes } from '../data/clientes';
-// import { useNavigation} from 'expo-router';
-// import { NavigationContainer } from '@react-navigation/native';
-import Index from '../index';
-
+import { getUsuarioByMail } from "../helpers/getUsuarioByMail";
 
 const App=({navigation})=>{
-  //const navigation = useNavigation();
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -26,13 +20,13 @@ const App=({navigation})=>{
     newExpandedStates[index] = !newExpandedStates[index];
     setExpandedStates(newExpandedStates);
   };
+  const vendedor = "001"
   //FILTRO
-  const vendedorId = '001';
   const [filteredClientes, setFilteredClientes] = useState([]);
   useEffect(() => {
-    const filterData = clientes.filter((cliente) => cliente.vendedor === vendedorId);
+    const filterData = clientes.filter((cliente) => cliente.vendedor === vendedor);
     setFilteredClientes(filterData);
-  }, [vendedorId]);
+  }, [vendedor]);
   const eliminarTarjeta = (i) => {
     const updatedClientes = [...filteredClientes];
     updatedClientes.splice(i, 1);//Lo borra
@@ -124,11 +118,13 @@ const App=({navigation})=>{
               onPress={() => toggleCard(index)}
               key={`${cliente.id}-${index}`}
             >
-              <Text style={style.cardTitle}>{cliente.nombre}</Text>
-              <TouchableOpacity style={style.infoCliente}>
+              <View style={style.cardHeader}>             
+                <Text style={style.cardTitle}>{cliente.nombre}</Text>
+                <TouchableOpacity style={style.infoCliente}>
                 <Image source={require('../assets/info.png')}/>
                 
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
               {expandedStates[index] && (
                 <View style={style.expandedContent}>
                   <Text style={style.contenidoInfoCliente}>Información del pedido:</Text>
@@ -139,6 +135,14 @@ const App=({navigation})=>{
                       onPress={() => handleLinkClick('https://maps.app.goo.gl/i8nKcZv5W4BoAtFD6')}
                     >
                       {cliente.direccion}
+                    </Text>
+                  </Text>
+                  <Text style={style.contenidoInfoCliente}>
+                  <Text style={style.contenidoInfoCliente}>Celular: </Text>
+                    <Text
+                         style={{ color: 'white', fontWeight:'normal',fontSize:15 }}
+                      >
+                        {cliente.telefono}
                     </Text>
                   </Text>
                   <Text style={style.contenidoInfoCliente}>Lista a entregar:</Text>
@@ -333,7 +337,12 @@ const style = StyleSheet.create ({
     height:50
   },
   infoCliente:{
-    
+    flex:1,
+    alignItems:'flex-end',
+  },
+  cardHeader:{
+    flex:1,
+    flexDirection: 'row',
   }
 })
 

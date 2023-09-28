@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import { getDbConnection, getUsuarios } from '../data/db';
-import { usuarios } from '../data/usuarios';
 
 export const getUsuarioByMail = (usu, formData ) => {
 

@@ -1,6 +1,5 @@
 import { Text, View,StatusBar,ImageBackground } from 'react-native';
 import Buttons from '../components/Buttons';
-import {viewprincstart} from '../constants/styles';
 
 
 const Onboarding = ({navigation}) => {

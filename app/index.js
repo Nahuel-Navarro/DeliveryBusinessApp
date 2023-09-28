@@ -1,8 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Splash,Onboarding,Login,Home,Clientes,DataCliente} from './screens/index'
+import { useEffect } from 'react';
+import { initDatabase } from './data/db';
 
 const Stack = createNativeStackNavigator();
 const index = ()=>{
+
+  
+  
+
   return (
           
             <Stack.Navigator screenOptions={{headerShown:false}} >

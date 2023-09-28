@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { StatusBar, ScrollView, TouchableOpacity } from 'react-native';
 import { clienteByID } from '../helpers/clienteByID';
 import ClienteCard from './ClienteCard';
+import { openDatabase } from '../data/db';
 
-
+const db = openDatabase();
 
 const Clientes = ({navigation , route}) => {
 
@@ -12,10 +13,25 @@ const Clientes = ({navigation , route}) => {
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
-    const cli = clienteByID(vendedor);
-    setClientes(cli);}, [vendedor]);
+    createTables(db);
+    db.transaction((tx) => {
+            
+      console.log('cargando clientes');
+      tx.executeSql(
+          `SELECT * from Clientes`,
+          [],
+          (_, { rows: { _array } }) => {
+              setClientes(_array);
+              console.log('clientes',_array);
+          }
+      );
+    },null,console.log('a'));
+    const cli = clienteByID(clientes, vendedor);
+    setClientes(cli);}, 
+    [vendedor]
+  );
     
-    return (
+  return (
       
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff',paddingHorizontal:'4%'}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
@@ -30,7 +46,7 @@ const Clientes = ({navigation , route}) => {
             
         </ScrollView>
         
-    )
+  )
 }
 
 export default Clientes;

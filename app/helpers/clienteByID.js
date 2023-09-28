@@ -1,5 +1,5 @@
-import { clientes } from '../data/clientes';
+// import { clientes } from '../data/clientes';
 
-export const clienteByID = (id) => {
+export const clienteByID = (clientes, id) => {
   return clientes.filter( cli => cli.vendedor === id )
 }

@@ -24,8 +24,8 @@ const DataCliente = ({route}) => {
                 <Text style={styles.textmid}>· Cond. venta: {cli.codvent}</Text>
             </View>
               
-            <View style={styles.viewrow}>
-                {/* Registrar visita */}
+            {/* <View style={styles.viewrow}>
+                //  Registrar visita 
                 <TouchableOpacity style={styles.btn}>
                     <Image source={require('../assets/images/check.png')} style={styles.img}/>
                     <Text style={styles.textsmall}>Pedido</Text>
@@ -40,7 +40,7 @@ const DataCliente = ({route}) => {
                     <Image source={require('../assets/images/pago.png')} style={styles.img}/>
                     <Text style={styles.textsmall}>Pago</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <View style={styles.viewcolumn}>
                 {/* Deuda */}

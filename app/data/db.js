@@ -14,10 +14,12 @@ export function openDatabase() {
 
   const db = SQLite.openDatabase("Proyecto.db");
   return db;
+  
 }
 
 export function createTables(db) {
   db.transaction((tx) => {
+    
     // Crear tabla Clientes
     tx.executeSql(
       `

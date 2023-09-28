@@ -3,7 +3,7 @@ import { StyleSheet, Text, ScrollView, View, StatusBar, Image, TextInput } from 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Buttons from '../components/Buttons';
 import { validateLogin } from '../helpers/validateLogin';
-import { createTables, getDbConnection, getUsuarios, initDatabase, openDatabase } from '../data/db';
+import { createTables, openDatabase } from '../data/db';
 import * as SQLite from "expo-sqlite";
 
 
@@ -11,6 +11,7 @@ const db = openDatabase();
 
 const Login = ({ navigation }) => {
     const [usu, setUsu] = useState([]);
+    const [clientes, setClientes] = useState([]);
     const [formData, setformData] = useState({
         email: '',
         password: ''
@@ -18,10 +19,6 @@ const Login = ({ navigation }) => {
     
     useEffect(() => {
         createTables(db);
-
-        // console.log('cargando');
-        // const usuarios =  getUsuarios(db);
-        // setUsu(usuarios);
         db.transaction((tx) => {
             
             console.log('cargando usuarios');
@@ -33,8 +30,18 @@ const Login = ({ navigation }) => {
                     console.log('usu',_array);
                 }
             );
+            console.log('cargando clientes');
+            tx.executeSql(
+                `SELECT * from Clientes`,
+                [],
+                (_, { rows: { _array } }) => {
+                    setClientes(_array);
+                    console.log('clientes',_array);
+                }
+            );
         },null,console.log('a'));
 
+        
     }, []);
 
     return (
@@ -65,7 +72,7 @@ const Login = ({ navigation }) => {
             </View>
 
             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
-                <Buttons btn_text={"Ingresar"} on_press={() => validateLogin(usu, formData, navigation)} />
+                <Buttons btn_text={"Ingresar"} on_press={() => validateLogin(usu, formData, clientes, navigation)} />
             </View>
 
         </ScrollView>

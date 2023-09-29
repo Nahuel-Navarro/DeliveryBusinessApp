@@ -1,8 +1,8 @@
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Button, TextInput } from 'react-native';
 import { useEffect, useState } from 'react';
+import { openDatabase, createTables, getMapInfo} from './data/db';
 import * as Location from 'expo-location';
-import { initialMarkerData } from './markerData'; // Import your marker data
 import * as Linking from 'expo-linking';
 
 export default function App() {
@@ -13,7 +13,8 @@ export default function App() {
     longitudeDelta: 0.0421,
   });
 
-  const [markers, setMarkers] = useState(initialMarkerData); // Initialize with imported data
+  
+  const [markers, setMarkers] = useState([]); // Initialize with imported data
   const [newLatitude, setNewLatitude] = useState(''); // State for latitude input
   const [newLongitude, setNewLongitude] = useState(''); // State for longitude input
   const [markerTitle, setMarkerTitle] = useState(''); // State for marker title input
@@ -21,12 +22,12 @@ export default function App() {
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-
+  
       if (status !== 'granted') {
         setErrorMsg('El acceso a la ubicación fue denegado');
         return;
       }
-
+  
       const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
       const initialRegion = {
         latitude: location.coords.latitude,
@@ -34,36 +35,24 @@ export default function App() {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       };
+  
       setMapRegion(initialRegion);
+  
+      const db = openDatabase();
+      createTables(db);
+  
+      try {
+        const data = await getMapInfo(db);
+
+        console.log("Marker Data:", data);
+
+        setMarkers(data);
+      } catch (error) {
+        console.error('Error fetching data from the database:', error);
+      }
     })();
   }, []);
 
-  const addMarker = () => {
-    if (newLatitude && newLongitude) {
-      const latitude = parseFloat(newLatitude);
-      const longitude = parseFloat(newLongitude);
-
-      const newMarker = {
-        id: `customMarker${markers.length}`,
-        latitude,
-        longitude,
-        title: markerTitle,
-        isCurrentLocation: false,
-        width: 5,
-        height: 5,
-      };
-
-      // Update the marker data state with the new marker
-      setMarkers([...markers, newMarker]);
-
-      // Clear the input fields
-      setNewLatitude('');
-      setNewLongitude('');
-      setMarkerTitle('');
-
-      // Optional: Save the updated marker data to a file here if needed
-    }
-  };
 
   const generateRouteUrl = () => {
     if (markers.length < 2) {
@@ -102,25 +91,7 @@ export default function App() {
           />
         ))}
       </MapView>
-      <TextInput
-        style={styles.input}
-        placeholder="Latitude"
-        onChangeText={(text) => setNewLatitude(text)}
-        value={newLatitude}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Longitude"
-        onChangeText={(text) => setNewLongitude(text)}
-        value={newLongitude}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Marker Title"
-        onChangeText={(text) => setMarkerTitle(text)}
-        value={markerTitle}
-      />
-      <Button title="Add Marker" onPress={addMarker} />
+      
       <Button title="Trazar ruta" onPress={generateRouteUrl} />
     </View>
   );

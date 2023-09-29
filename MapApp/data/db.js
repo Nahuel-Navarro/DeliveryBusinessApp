@@ -33,7 +33,7 @@ export function createTables(db) {
         
         // Insertar un usuario de ejemplo después de crear la tabla Usuarios
         tx.executeSql(
-          "INSERT INTO MapInfo (id, Latitude, Longitude, Descripcion) VALUES ('Siglo 21', '-31.42225062242661', '-64.1839543315893', 'Entre rondeau e Ituzaingo')",
+          "INSERT INTO MapInfo (id, Latitude, Longitude, Descripcion) VALUES ('Colonia Caroya', '-31.021563283031128', '-64.06169422829703', 'Salames ashe')",
           [],
           (_, { rowsAffected }) => {
             if (rowsAffected > 0) {

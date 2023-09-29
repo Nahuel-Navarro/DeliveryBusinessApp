@@ -1,5 +1,5 @@
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from './data/db';
 import * as Location from 'expo-location';
@@ -15,9 +15,7 @@ export default function App() {
 
   
   const [markers, setMarkers] = useState([]); // Initialize with imported data
-  const [newLatitude, setNewLatitude] = useState(''); // State for latitude input
-  const [newLongitude, setNewLongitude] = useState(''); // State for longitude input
-  const [markerTitle, setMarkerTitle] = useState(''); // State for marker title input
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -37,6 +35,7 @@ export default function App() {
       };
   
       setMapRegion(initialRegion);
+      setCurrentLocation(location.coords);
   
       const db = openDatabase();
       createTables(db);
@@ -62,6 +61,13 @@ export default function App() {
     }
 
     const routeCoordinates = markers.map((marker) => `${marker.latitude},${marker.longitude}`);
+
+    if (currentLocation) {
+      // Include the current location as the starting point
+      const currentLocationString = `${currentLocation.latitude},${currentLocation.longitude}`;
+      routeCoordinates.unshift(currentLocationString);
+    }
+
     const routeUrl = `https://www.google.com/maps/dir/${routeCoordinates.join('/')}`;
 
     // Open the generated route URL in the device's web browser
@@ -71,6 +77,20 @@ export default function App() {
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={mapRegion}>
+      {currentLocation && (
+        <Marker
+          coordinate={{
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+          }}
+          title="Current Location"
+          image={require('./assets/TruckIcon.png')} // Replace with your custom icon
+          style={{
+            width: 40, // Adjust the width and height as needed
+            height: 40,
+      }}
+    />
+  )}
         {markers.map((marker, index) => (
           <Marker
             key={index}

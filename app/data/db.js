@@ -236,7 +236,7 @@ export function createTables(db) {
         
         // Insertar un usuario de ejemplo después de crear la tabla DetallePedidos
         // tx.executeSql(
-        //   "INSERT INTO DetallePedidos (id, producto, cantidad, precio_un, subtotal, pedido) VALUES (null, '1', '5000', '5000', '1')",
+        //   "INSERT INTO DetallePedidos (id, producto, cantidad, precio_un, subtotal, pedido) VALUES (null, '1', '1', '5000', '5000', '1')",
         //   [],
         //   (_, { rowsAffected }) => {
         //     if (rowsAffected > 0) {
@@ -336,3 +336,4 @@ export function getUsuarios(db) {
   });
   return usuariosArray;
 }
+

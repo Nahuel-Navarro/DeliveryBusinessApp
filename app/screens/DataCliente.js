@@ -2,8 +2,12 @@ import { StatusBar, ScrollView, View, Image, Text, TouchableOpacity, StyleSheet 
 
 const DataCliente = ({route}) => {
 
-    const {cli} = route.params;
-  
+    const {cli, deudas} = route.params;
+    const deuda = deudasByCli(deudas);
+    let suma = 0;
+    deuda.map((deu)=>{
+      suma += deu.monto;
+    })
     
     return (
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff',paddingHorizontal:'4%'}} >
@@ -45,7 +49,7 @@ const DataCliente = ({route}) => {
             <View style={styles.viewcolumn}>
                 {/* Deuda */}
                 <Text style={styles.texttitle2}>Cuenta Corriente</Text>
-                <Text style={styles.textsmall}>$0.00</Text>
+                <Text style={styles.textsmall}>${suma}</Text>
                 <Text style={styles.textsmall}>Saldo total</Text>
 
             </View>

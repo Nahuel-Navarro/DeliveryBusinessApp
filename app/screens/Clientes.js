@@ -12,11 +12,25 @@ const Clientes = ({navigation , route}) => {
   const {usuario, clientes} = route.params;
   const vendedor = usuario.id;
   const [clientes1, setClientes1] = useState([]);
+  const [deudas, setDeudas] = useState()
 
   useEffect(() => {
-
+    createTables(db);
+    db.transaction((tx) => {
+        
+        console.log('cargando deudas');
+        tx.executeSql(
+            `SELECT * from Deudas D inner join Usuarios U where D.usuario = U.id`,
+            [],
+            (_, { rows: { _array } }) => {
+                setDeudas(_array);
+                console.log('deudas',_array);
+            }
+        );
+      },null,console.log('a'));
     const clie = clienteByID(clientes, vendedor);
     setClientes1(clie);
+    
   },[]);
     
   return (
@@ -26,8 +40,8 @@ const Clientes = ({navigation , route}) => {
             
                 {clientes1.map(cli => (
                   
-                  <TouchableOpacity key={cli.id} style={{flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start',backgroundColor:'#ededed',width:'100%',borderRadius:10,paddingLeft:20,paddingBottom:20,marginVertical:10}} onPress={() => {navigation.navigate("DataCliente", {cli:cli})}}>
-                       <ClienteCard  {...cli}/>
+                  <TouchableOpacity key={cli.id} style={{flexDirection:'column',justifyContent:'flex-start',alignItems:'flex-start',backgroundColor:'#ededed',width:'100%',borderRadius:10,paddingLeft:20,paddingBottom:20,marginVertical:10}} onPress={() => {navigation.navigate("DataCliente", {cli:cli, deudas})}}>
+                       <ClienteCard  id={cli.id} nombre={cli.nombre} direccion={cli.direccion} deudas={deudas}/>
                   </TouchableOpacity>
                   
                 ))}

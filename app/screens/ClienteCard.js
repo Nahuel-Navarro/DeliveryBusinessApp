@@ -1,8 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
+import {deudasByCli} from '../helpers/deudasByCli';
 
 
-export const ClienteCard = ({id,nombre,direccion}) => {
+export const ClienteCard = ({id,nombre,direccion,deudas}) => {
 
+  const deuda = deudasByCli(deudas);
+  let suma = 0;
+  deuda.map((deu)=>{
+    suma += deu.monto;
+  })
   return (
 
       <View>
@@ -15,9 +21,9 @@ export const ClienteCard = ({id,nombre,direccion}) => {
         <Text style={styles.textmid}>{direccion}</Text>
         
         <View style={styles.view}>
-            <Text style={styles.textsmall}>comprobantes</Text>
+            <Text style={styles.textsmall}>comprobantes: {deuda.length}</Text>
             <Text style={styles.textsmall}> · </Text>
-            <Text style={styles.textsmall}>deuda</Text>
+            <Text style={styles.textsmall}>deuda: ${suma}</Text>
         </View>
       </View>
         

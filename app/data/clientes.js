@@ -9,7 +9,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-71515733-7',
-        'condvent': 'Contado pendiente 7 dias',
+        'condvent': 'Entregar',
         'vendedor': '001'
     },
     {
@@ -22,7 +22,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-02020202-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '001'
     },
     {
@@ -35,7 +35,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-03030303-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '001'
     },
     {
@@ -48,7 +48,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-04040404-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '001'
     },
     {
@@ -61,7 +61,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-05050505-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '001'
     },
     {
@@ -74,7 +74,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-06060606-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '001'
     },
     {
@@ -87,7 +87,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-07070707-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '001'
     },
     {
@@ -100,7 +100,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-08080808-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '002'
     },
     {
@@ -113,7 +113,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-09090909-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '002'
     },
     {
@@ -126,7 +126,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-10101010-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '002'
     },
     {
@@ -139,7 +139,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-11111111-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '002'
     },
     {
@@ -152,7 +152,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-12121212-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '002'
     },
     {
@@ -165,7 +165,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-13131313-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '002'
     },
     {
@@ -178,7 +178,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-14141414-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '002'
     },
     {
@@ -191,7 +191,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-15151515-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '003'
     },
     {
@@ -204,7 +204,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-16161616-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '003'
     },
     {
@@ -217,7 +217,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-17171717-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '003'
     },
     {
@@ -230,12 +230,12 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-18181818-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '003'
     },
     {
         'id': '00019',
-        'nombre': 'Diego González',
+        'nombre': 'Diego Gonchoso',
         'direccion': 'RRR',
         'latitud': '-78.3448',
         'longitud': '152.8697',
@@ -243,7 +243,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-19191919-7',
-        'condvent': '',
+        'condvent': 'Entregar',
         'vendedor': '003'
     },
     {
@@ -256,7 +256,7 @@ export const clientes = [
         'telefono': '2615881375',
         'iva': 'Responsable Inscripto',
         'cuit': '30-20202020-7',
-        'condvent': '',
+        'condvent': 'Cobrar',
         'vendedor': '003'
     },
 ];

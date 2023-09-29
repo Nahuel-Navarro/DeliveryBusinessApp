@@ -3,8 +3,15 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react
 import Modal from 'react-native-modal';
 import { clientes } from '../data/clientes';
 import { getUsuarioByMail } from "../helpers/getUsuarioByMail";
+import {validateLogin} from '../helpers/validateLogin';
 
-const App=({navigation})=>{
+
+const App=({navigation, route})=>{
+  const [expandedEntregas, setExpandedEntregas] = useState([]);
+  const [expandedCobros, setExpandedCobros] = useState([]);
+
+  const [entregasCliBorar, setEntregasCliBorrar] = useState([]);
+  const [cobrosCliBorrar, setCobrosCliBorrar] = useState([]);
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -12,29 +19,48 @@ const App=({navigation})=>{
     setModalVisible(!isModalVisible);
   };
 
-  //EXPANDIR O NO LAS TARJETAS CON LA INFORMACION DEL PEDIDO
-  const [expandedStates, setExpandedStates] = useState([false, false]);
-  
-  const toggleCard = (index) => {
-    const newExpandedStates = [...expandedStates];
-    newExpandedStates[index] = !newExpandedStates[index];
-    setExpandedStates(newExpandedStates);
+  //EXPANDIR O NO LAS TARJETAS CON LA INFORMACION DEL PEDIDO  
+  const toggleCardEntregas = (index) => {
+    const updatedExpandedEntregas = [...expandedEntregas];
+    updatedExpandedEntregas[index] = !updatedExpandedEntregas[index];
+    setExpandedEntregas(updatedExpandedEntregas);
   };
-  const vendedor = "001"
-  //FILTRO
-  const [filteredClientes, setFilteredClientes] = useState([]);
+
+  const toggleCardCobros = (index) => {
+    const updatedExpandedCobros = [...expandedCobros];
+    updatedExpandedCobros[index] = !updatedExpandedCobros[index];
+    setExpandedCobros(updatedExpandedCobros);
+  };
+
+    //FILTRO
+
+ const vendedor = route.params?.vendedor || "000";
+
+
   useEffect(() => {
-    const filterData = clientes.filter((cliente) => cliente.vendedor === vendedor);
-    setFilteredClientes(filterData);
+    const entregas = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Entregar');
+    const cobros = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Cobrar');
+
+    setEntregasCliBorrar(entregas);
+    setCobrosCliBorrar(cobros);
   }, [vendedor]);
-  const eliminarTarjeta = (i) => {
-    const updatedClientes = [...filteredClientes];
-    updatedClientes.splice(i, 1);//Lo borra
-    setFilteredClientes(updatedClientes);
+
+//Eliminar tarjetas, lo hago separado por los indices:
+  const eliminarTarjetaEntrega = (i) => {
+    const updatedClientes = [...entregasCliBorar];
+    updatedClientes.splice(i, 1);
+    setEntregasCliBorrar(updatedClientes);
+  };
+
+  const eliminarTarjetaCobro = (i) => {
+    const updatedClientes = [...cobrosCliBorrar];
+    updatedClientes.splice(i, 1);
+    setCobrosCliBorrar(updatedClientes);
   };
 
   //Este lo que va a hacer es verificar si todos estan entregados
-  const todosEntregados = filteredClientes.every((cliente) => cliente.estado);
+  const todosEntregados = entregasCliBorar.length === 0;
+  const todosCobrados = cobrosCliBorrar.length === 0;
   return(
       <ScrollView>
       <View style={style.container}>
@@ -76,7 +102,7 @@ const App=({navigation})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('Entregas')} 
+              <TouchableOpacity onPress={() => navigation.navigate('Clientes')} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}
@@ -110,12 +136,14 @@ const App=({navigation})=>{
         </Modal>
       </View>
       <View style={style.div1general}>
-        <Text style={style.div1pedidosText}>Pedidos a Entregar</Text>
+        <View style={style.TextTitle}>
+          <Text style={style.div1pedidosText}>Entregas</Text>
+        </View>
         <View style={style.tarjetasPedidosClientes}>
-          {filteredClientes.map((cliente, index) => (
+          {entregasCliBorar.map((cliente, index) => (
             <TouchableOpacity
               style={style.cardsButton}
-              onPress={() => toggleCard(index)}
+              onPress={() => toggleCardEntregas(index)}
               key={`${cliente.id}-${index}`}
             >
               <View style={style.cardHeader}>             
@@ -125,7 +153,7 @@ const App=({navigation})=>{
                 
                 </TouchableOpacity>
               </View>
-              {expandedStates[index] && (
+              {expandedEntregas [index] && (
                 <View style={style.expandedContent}>
                   <Text style={style.contenidoInfoCliente}>Información del pedido:</Text>
                   <Text style={style.contenidoInfoCliente}>
@@ -152,12 +180,7 @@ const App=({navigation})=>{
                           style.botonCancelar,
                           { backgroundColor: cliente.estado ? 'gray' : '#A2C579' },
                         ]}
-                        onPress={() => {
-                          if (!cliente.estado) {
-                            eliminarTarjeta(index);
-                          }
-                        }}
-                        disabled={cliente.estado}
+                        onPress={() => eliminarTarjetaEntrega(index)}
                       >
                         <Text style={style.textEntregar}>Entregar</Text>
                         <Image source={require('../assets/orden(1).png')} />
@@ -177,6 +200,77 @@ const App=({navigation})=>{
             <Text style={style.todosEntregadosMessage}>Has entregado todos los pedidos!!</Text>
           </View>
          )}
+
+
+    <View style={style.TextTitle}>
+      <Text style={style.div1pedidosText} >Cobros</Text>
+    </View>
+        <View style={style.tarjetasPedidosClientes}>
+          {cobrosCliBorrar.map((cliente, index) => (
+            <TouchableOpacity
+              style={style.cardsButton}
+              onPress={() => toggleCardCobros(index)}
+              key={`${cliente.id}-${index}`}
+            >
+              <View style={style.cardHeader}>             
+                <Text style={style.cardTitle}>{cliente.nombre}</Text>
+                <TouchableOpacity style={style.infoCliente}>
+                <Image source={require('../assets/info.png')}/>
+                
+                </TouchableOpacity>
+              </View>
+              {expandedCobros[index] && (
+                <View style={style.expandedContent}>
+                  <Text style={style.contenidoInfoCliente}>Información del pedido:</Text>
+                  <Text style={style.contenidoInfoCliente}>
+                    Dirección:{' '}
+                    <Text
+                      style={{ color: 'white', textDecorationLine: 'underline', fontWeight:'normal', fontSize:15 }}
+                      onPress={() => handleLinkClick('https://maps.app.goo.gl/i8nKcZv5W4BoAtFD6')}
+                    >
+                      {cliente.direccion}
+                    </Text>
+                  </Text>
+                  <Text style={style.contenidoInfoCliente}>
+                  <Text style={style.contenidoInfoCliente}>Celular: </Text>
+                    <Text
+                         style={{ color: 'white', fontWeight:'normal',fontSize:15 }}
+                      >
+                        {cliente.telefono}
+                    </Text>
+                  </Text>
+                  <Text style={style.contenidoInfoCliente}>Lista a entregar:</Text>
+                  <View style={style.botonaccion}>
+                    <TouchableOpacity
+                        style={[
+                          style.botonCancelar,
+                          { backgroundColor: cliente.estado ? 'gray' : '#A2C579' },
+                        ]}
+                        onPress={() => eliminarTarjetaCobro(index)}
+                      >
+                        <Text style={style.textEntregar}>Entregar</Text>
+                        <Image source={require('../assets/orden(1).png')} />
+                      </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </TouchableOpacity>
+          ))}
+        </View>
+        {todosCobrados && (
+          <View style={style.viewPedidosCompletados}>
+            <Image
+                source={require('../assets/envio-gratis.png')}
+                style={style.imgRepartoCompletado}
+            />
+            <Text style={style.todosCobradosMessage}>Has terminado de cobrar a los clientes!!</Text>
+          </View>
+         )}
+      </View>
+      <View style={style.botonAddContainer}>
+        <TouchableOpacity style={style.botonAdd}>
+          <Text style={style.botonAddText}>Agregar Pedido</Text>
+        </TouchableOpacity>
       </View>
       </ScrollView>
   );
@@ -203,11 +297,7 @@ const style = StyleSheet.create ({
   },
   div1pedidosText:{
     color:"#0e485e",
-    alignContent:'center',
-    justifyContent:'center',
     fontSize:25,
-    width:"100%",
-    paddingLeft:80, //Te lo coloca en el medio, sacar porque no es responsive.
     fontWeight: 'bold',
     marginBottom:10
   },
@@ -343,7 +433,41 @@ const style = StyleSheet.create ({
   cardHeader:{
     flex:1,
     flexDirection: 'row',
-  }
+  },
+  TextTitle:{
+    width:"100%",
+    alignItems:'center',
+    marginBottom:30,
+    marginTop:30
+  },
+  todosCobradosMessage: {
+    fontSize: 18,
+    color: '#A2C579',
+    textAlign: 'center',
+    marginTop: 10,
+    fontWeight: 'bold',
+    marginBottom:30
+  },
+  botonAddContainer:{
+    alignSelf:'center',
+    marginBottom:50,
+    marginTop:50,
+    width:"90%",
+    alignItems: 'center',
+  },
+   botonAdd:{
+    width: "90%",
+    padding: 20,
+    borderWidth:4,
+    borderColor: '#0e485e',
+    borderRadius: 10,
+    marginBottom:10
+   },
+   botonAddText:{
+    textAlign:'center',
+    color:'#0e485e',
+    fontSize:18
+   }
 })
 
 export default App;

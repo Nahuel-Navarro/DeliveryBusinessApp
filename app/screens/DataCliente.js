@@ -1,12 +1,16 @@
 import { StatusBar, ScrollView, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { deudasByCli } from '../helpers/deudasByCli';
 
 const DataCliente = ({route}) => {
 
     const {cli, deudas} = route.params;
-    const deuda = deudasByCli(deudas);
+    
+    const deuda = deudasByCli(deudas,cli);
+    console.log(deuda)
     let suma = 0;
     deuda.map((deu)=>{
-      suma += deu.monto;
+        console.log(deu)
+      suma += parseInt(deu.monto, 10);
     })
     
     return (

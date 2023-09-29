@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
-import {deudasByCli} from '../helpers/deudasByCli';
+import { deudasByCli } from '../helpers/deudasByCli';
 
 
 export const ClienteCard = ({id,nombre,direccion,deudas}) => {
 
-  const deuda = deudasByCli(deudas);
+  const deuda = deudasByCli(deudas,id);
   let suma = 0;
   deuda.map((deu)=>{
-    suma += deu.monto;
+    suma += parseInt(deu.monto, 10);
   })
   return (
 

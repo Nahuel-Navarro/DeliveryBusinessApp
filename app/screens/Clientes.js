@@ -12,24 +12,31 @@ const Clientes = ({navigation , route}) => {
   const {usuario, clientes} = route.params;
   const vendedor = usuario.id;
   const [clientes1, setClientes1] = useState([]);
-  const [deudas, setDeudas] = useState()
+  const [deudas, setDeudas] = useState([])
 
+  // console.log(route.params)
   useEffect(() => {
-    createTables(db);
-    db.transaction((tx) => {
-        
-        console.log('cargando deudas');
-        tx.executeSql(
-            `SELECT * from Deudas D inner join Usuarios U where D.usuario = U.id`,
-            [],
-            (_, { rows: { _array } }) => {
-                setDeudas(_array);
-                console.log('deudas',_array);
-            }
-        );
-      },null,console.log('a'));
+
     const clie = clienteByID(clientes, vendedor);
     setClientes1(clie);
+    //createTables(db);
+    db.transaction((tx) => {
+      console.log('cargando deudas');
+      tx.executeSql(
+          `SELECT * from Deudas`,
+          [],
+          (_, { rows: { _array } }) => {
+              setDeudas(_array);
+              console.log('deudas', _array);
+          }
+      );
+    }, (error) => {
+      console.error('Error en la transacción de la base de datos:', error);
+    }, () => {
+      console.log('Transacción de la base de datos completada con éxito');
+    });
+  
+
     
   },[]);
     

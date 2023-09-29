@@ -126,20 +126,24 @@ export function createTables(db) {
 
     tx.executeSql(
       `
-        CREATE TABLE IF NOT EXISTS Deudas (
-          id INTEGER PRIMARY KEY,
-          monto TEXT,
-          cliente TEXT,
-          fecha TEXT
-        )
-      `,
+      CREATE TABLE IF NOT EXISTS Deudas (
+        id INTEGER PRIMARY KEY,
+        monto TEXT,
+        cliente TEXT,
+        fecha TEXT,
+        usuario TEXT
+      )
+    `,
+      // `
+      //   DROP TABLE Deudas
+      // `,
       [],
       (_, result) => {
         console.log("Tabla Deudas creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Deudas
         // tx.executeSql(
-        //   "INSERT INTO Deudas (id, monto, cliente, fecha) VALUES (null, '5000', '8', '28/09/2023')",
+        //   "INSERT INTO Deudas (id, monto, cliente, fecha, usuario) VALUES (null, '5000', '112', '28/09/2023', '2')",
         //   [],
         //   (_, { rowsAffected }) => {
         //     if (rowsAffected > 0) {

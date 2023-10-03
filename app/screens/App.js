@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import { clientes } from '../data/clientes';
 import { getUsuarioByMail } from "../helpers/getUsuarioByMail";
 import {validateLogin} from '../helpers/validateLogin';
+import { clienteByID } from '../helpers/clienteByID';
 
 
 const App=({navigation, route})=>{
@@ -35,12 +36,12 @@ const App=({navigation, route})=>{
     //FILTRO
 
  const vendedor = route.params?.vendedor || "000";
-
+  
 
   useEffect(() => {
     const entregas = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Entregar');
     const cobros = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Cobrar');
-
+    console.log(vendedor)
     setEntregasCliBorrar(entregas);
     setCobrosCliBorrar(cobros);
   }, [vendedor]);
@@ -94,7 +95,7 @@ const App=({navigation, route})=>{
                   style={style.menuLogo}
                 />
               </View>
-              <TouchableOpacity on_press={()=>navigation.navigate("Clientes")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Clientes")} 
                 style={style.optionBottom}>
                     <Image
                       source={require('../assets/cliente.png')}
@@ -112,6 +113,7 @@ const App=({navigation, route})=>{
               </TouchableOpacity>
               <TouchableOpacity 
                 style={style.optionBottom}
+                onPress={()=> navigation.navigate('Clientes')}
                 >
                 <Image
                   source={require('../assets/carrito-de-supermercado.png')}
@@ -119,7 +121,7 @@ const App=({navigation, route})=>{
                 />  
                 <Text style={style.optionText}>Articulos</Text>
               </TouchableOpacity>
-              <TouchableOpacity on_press={()=>navigation.navigate("Articulos")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Articulos")} 
                 style={style.optionBottom}
               >
                 <Image

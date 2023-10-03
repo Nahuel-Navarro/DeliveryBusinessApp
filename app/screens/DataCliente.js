@@ -7,7 +7,7 @@ const DataCliente = ({route}) => {
     
     return (
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff',paddingHorizontal:'4%'}} >
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />
             
             <View>
                 {/* Datos */}

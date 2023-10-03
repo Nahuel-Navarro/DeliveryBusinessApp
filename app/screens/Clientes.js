@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { StatusBar, ScrollView, TouchableOpacity } from 'react-native';
 import { clienteByID } from '../helpers/clienteByID';
 import ClienteCard from './ClienteCard';
-
+import { usuarios } from '../data/usuarios';
+import { App } from "./App";
 
 
 const Clientes = ({navigation , route}) => {
 
-  const {usu} = route.params;
-  const vendedor = usu.id;
+  const usu = route.params;
+  const vendedor =  "001";
+  console.log(route.params)
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const Clientes = ({navigation , route}) => {
     return (
       
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff',paddingHorizontal:'4%'}} >
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />
             
                 {clientes.map(cli => (
                   

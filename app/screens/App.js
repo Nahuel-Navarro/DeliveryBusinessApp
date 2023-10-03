@@ -119,14 +119,14 @@ const App=({navigation, route})=>{
                 />  
                 <Text style={style.optionText}>Articulos</Text>
               </TouchableOpacity>
-              <TouchableOpacity on_press={()=>navigation.navigate("Articulos")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Map")} 
                 style={style.optionBottom}
               >
                 <Image
                   source={require('../assets/whatsapp.png')}
                   style={style.imgOptionMenu}
                 />  
-                <Text style={style.optionText}>Contacto</Text>
+                <Text style={style.optionText}>Mapa</Text>
               </TouchableOpacity>
                 <View style={style.ViewStyleFooter}>
                   <Text></Text>

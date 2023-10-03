@@ -1,13 +1,11 @@
 import { View,StatusBar,Image } from 'react-native';
 
 
-const Home = ({navigation , route}) => {
-
-    const {usu} = route.params;
-
-    setTimeout(()=>{
-        navigation.navigate('Clientes', {usu})
-    },3000)
+const Home = ({ navigation, route }) => {
+    const { usuario, clientes } = route.params;
+    setTimeout(() => {
+      navigation.navigate("Clientes", { usuario, clientes });
+    }, 3000);
     return (
         <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:'#fff'}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />

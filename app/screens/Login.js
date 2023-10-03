@@ -1,17 +1,48 @@
-import { useState} from 'react';
-import { StyleSheet, Text, ScrollView,View,StatusBar,Image,TextInput } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, Text, ScrollView, View, StatusBar, Image, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Buttons from '../components/Buttons';
 import { validateLogin } from '../helpers/validateLogin';
+import { createTables, openDatabase } from '../data/db';
+import * as SQLite from "expo-sqlite";
 
+const db = openDatabase();
 
+const Login = ({ navigation }) => {
+    const [usu, setUsu] = useState([]);
+    const [clientes, setClientes] = useState([]);
+    const [formData, setformData] = useState({
+        email: '',
+        password: ''
+    });
+    
+    useEffect(() => {
+        createTables(db);
+        db.transaction((tx) => {
+            
+            console.log('cargando usuarios');
+            tx.executeSql(
+                `SELECT * from Usuarios`,
+                [],
+                (_, { rows: { _array } }) => {
+                    setUsu(_array);
+                    console.log('usu',_array);
+                }
+            );
+            console.log('cargando clientes');
+            tx.executeSql(
+                `SELECT * from Clientes`,
+                [],
+                (_, { rows: { _array } }) => {
+                    setClientes(_array);
+                    console.log('clientes',_array);
+                }
+            );
+        },null,console.log('a'));
 
-const Login = ({navigation}) => {
+        
+    }, []);
 
-    const [formData,setformData] = useState({
-        email:'',
-        password:''
-    })
     return (
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff'}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />

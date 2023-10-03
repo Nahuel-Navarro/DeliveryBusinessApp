@@ -1,13 +1,21 @@
 import { StatusBar, ScrollView, View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { deudasByCli } from '../helpers/deudasByCli';
 
 const DataCliente = ({route}) => {
 
-    const {cli} = route.params;
-  
+    const {cli, deudas} = route.params;
+    
+    const deuda = deudasByCli(deudas,cli);
+    console.log(deuda)
+    let suma = 0;
+    deuda.map((deu)=>{
+        console.log(deu)
+      suma += parseInt(deu.monto, 10);
+    })
     
     return (
         <ScrollView style={{flex:2,flexDirection:'column',backgroundColor:'#fff',paddingHorizontal:'4%'}} >
-            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />
+            <StatusBar barStyle="light-content" hidden={false} backgroundColor="#465bd8" />
             
             <View>
                 {/* Datos */}
@@ -24,8 +32,8 @@ const DataCliente = ({route}) => {
                 <Text style={styles.textmid}>· Cond. venta: {cli.codvent}</Text>
             </View>
               
-            <View style={styles.viewrow}>
-                {/* Registrar visita */}
+            {/* <View style={styles.viewrow}>
+                //  Registrar visita 
                 <TouchableOpacity style={styles.btn}>
                     <Image source={require('../assets/images/check.png')} style={styles.img}/>
                     <Text style={styles.textsmall}>Pedido</Text>
@@ -40,12 +48,12 @@ const DataCliente = ({route}) => {
                     <Image source={require('../assets/images/pago.png')} style={styles.img}/>
                     <Text style={styles.textsmall}>Pago</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <View style={styles.viewcolumn}>
                 {/* Deuda */}
                 <Text style={styles.texttitle2}>Cuenta Corriente</Text>
-                <Text style={styles.textsmall}>$0.00</Text>
+                <Text style={styles.textsmall}>${suma}</Text>
                 <Text style={styles.textsmall}>Saldo total</Text>
 
             </View>

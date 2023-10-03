@@ -1,15 +1,16 @@
 import { getUsuarioByMail } from "./getUsuarioByMail";
 
 
-export const validateLogin = (formData, navigation) => {
-    const usu = getUsuarioByMail( formData ); 
-        if (usu!=undefined) {
-            const vendedor = usu.id;
-            navigation.navigate("App", { vendedor: vendedor });
-            return vendedor
+export const validateLogin = (usu, formData, clientes, navigation) => {
+    const usuario = getUsuarioByMail(usu, formData ); 
+    
+        if (usuario!=undefined) {
+            navigation.navigate("Home", {usuario, clientes});
+            
         } else {
             alert('Acceso invalido');
         }
     
 }
+
 export default validateLogin;

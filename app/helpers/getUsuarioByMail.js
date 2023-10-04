@@ -1,8 +1,8 @@
 import { usuarios } from '../data/usuarios';
 
 
-export const getUsuarioByMail = (usu, formData ) => {
+export const getUsuarioByMail = ( formData ) => {
 
-    return usu.find( usu => usu.mail === formData.email && usu.contraseña === formData.password && usu.rol === 'Vendedor');
+    return usuarios.find( usu => usu.mail === formData.email && usu.contraseña === formData.password && usu.rol === 'Vendedor');
 
 }

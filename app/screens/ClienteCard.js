@@ -1,17 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { deudasByCli } from '../helpers/deudasByCli';
 
 
-export const ClienteCard = ({id,nombre,direccion,deudas}) => {
+export const ClienteCard = ({id,nombre,direccion,telefono}) => {
 
-  const deuda = deudasByCli(deudas,id);
-  let suma = 0;
-  deuda.map((deu)=>{
-    suma += parseInt(deu.monto, 10);
-  })
   return (
-
-      <View>
+    
+      <View style={[styles.card, styles.shadowProp]}>
         <View style={styles.view}>
             <Text style={styles.textbig}>{id}</Text>
             <Text style={styles.textbig}> · </Text>
@@ -21,9 +15,8 @@ export const ClienteCard = ({id,nombre,direccion,deudas}) => {
         <Text style={styles.textmid}>{direccion}</Text>
         
         <View style={styles.view}>
-            <Text style={styles.textsmall}>comprobantes: {deuda.length}</Text>
-            <Text style={styles.textsmall}> · </Text>
-            <Text style={styles.textsmall}>deuda: ${suma}</Text>
+            <Text style={styles.textsmall}>Contacto: </Text>
+            <Text style={styles.textsmall}>{telefono}</Text>
         </View>
       </View>
         
@@ -32,8 +25,8 @@ export const ClienteCard = ({id,nombre,direccion,deudas}) => {
 export default ClienteCard;
 
 const styles = StyleSheet.create({
-  textbig: {fontFamily:'OpenSans-Bold',fontSize:20,color:'#000'},
-  textmid: {fontFamily:'OpenSans-SemiBold',fontSize:16,color:'#000'},
-  textsmall: {fontFamily:'OpenSans-Regular',fontSize:12,color:'#000'},
-  view: {flexDirection:'row',paddingTop:10}
+  textbig: {fontFamily:'OpenSans-Bold',fontSize:20,color:'#0e485e'},
+  textmid: {fontFamily:'OpenSans-SemiBold',fontSize:16,color:'#0e485e'},
+  textsmall: {fontFamily:'OpenSans-Regular',fontSize:12,color:'#0e485e'},
+  view: {flexDirection:'row',paddingTop:10},
 });

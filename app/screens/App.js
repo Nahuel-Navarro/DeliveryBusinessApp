@@ -348,7 +348,12 @@ const style = StyleSheet.create ({
     padding: 20,
     backgroundColor: '#0e485e',
     borderRadius: 10,
-    marginBottom:10
+    marginBottom:10,
+    shadowColor:"#0e485e", 
+    shadowOffset:{width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius:3, 
+    elevation:15
   },
   cardTitle: {
     fontSize: 18,
@@ -469,6 +474,11 @@ const style = StyleSheet.create ({
     textAlign:'center',
     color:'#0e485e',
     fontSize:18
+   }, 
+   optionText:{
+    fontFamily:'OpenSans-Regular',
+     fontSize:20,
+     fontWeight:'normal'
    }
 })
 

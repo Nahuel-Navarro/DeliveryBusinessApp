@@ -1,25 +1,73 @@
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button,Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-import { callApi } from './api';
 
-const fetchData = async () => {
+const url = 'localhost:88'; // Replace with your API base URL
+ const callApi = async (endpoint, method = 'GET', data = null) => {
   try {
-    const response = await callApi('/databaseUsuarios', 'GET');
-    console.log(response);
+    const url = `${url}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      // Add any other headers you need here
+    };
 
-    const responseData = response.data;
-    console.log(responseData);
+    const options = {
+      method,
+      headers,
+    };
 
+    if (data) {
+      options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse; // Return the entire JSON response
   } catch (error) {
-    console.error(error);
-    console.log("No se pudo acceder a la API")
+    throw error;
   }
 };
+
+
+
+
 export default function Map() {
+  // const [data, setData] = useState(undefined);
+
+  // const getAPIdata = async() =>{
+  //   const url = "localhost:88/databaseUsuarios";
+  //   let result = await fetch(url);
+  //   result = result.json();
+  //   setData(result)
+  // }
+  // useEffect(() => {
+  //   getAPIdata();
+  // },[])
+
+  const fetchData = async () => {
+    try {
+      const response = await callApi('/databaseUsuarios', 'GET');
+      console.log(response); // This will log the entire JSON response
+      // Access specific data within the response as needed
+      const responseData = response.data; // Replace 'data' with the actual key in your JSON response
+      console.log(responseData);
+    } catch (error) {
+      console.error(error);
+      // Handle errors here
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
   const [mapRegion, setMapRegion] = useState({
     latitude: -31.31320035959943,
     longitude: -64.22334981122708,

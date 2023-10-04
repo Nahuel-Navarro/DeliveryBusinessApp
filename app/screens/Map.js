@@ -5,10 +5,12 @@ import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
 
-const url = 'localhost:88'; // Replace with your API base URL
+ // Replace with your API base URL
  const callApi = async (endpoint, method = 'GET', data = null) => {
+  
   try {
-    const url = `${url}${endpoint}`;
+    const urlbase = 'http://192.168.48.223:88/';
+    const url = `${urlbase}${endpoint}`;
     const headers = {
       'Content-Type': 'application/json',
       // Add any other headers you need here
@@ -21,6 +23,7 @@ const url = 'localhost:88'; // Replace with your API base URL
 
     if (data) {
       options.body = JSON.stringify(data);
+      
     }
 
     const response = await fetch(url, options);
@@ -54,11 +57,10 @@ export default function Map() {
 
   const fetchData = async () => {
     try {
-      const response = await callApi('/databaseUsuarios', 'GET');
-      console.log(response); // This will log the entire JSON response
-      // Access specific data within the response as needed
-      const responseData = response.data; // Replace 'data' with the actual key in your JSON response
-      console.log(responseData);
+      const response = await callApi('databaseClientes', 'GET');
+      //console.log('ESTA ES LA RESPUESTA:'+response); // This will log the entire JSON response
+      console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
+
     } catch (error) {
       console.error(error);
       // Handle errors here

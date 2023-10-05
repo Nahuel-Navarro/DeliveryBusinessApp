@@ -1,0 +1,9 @@
+{
+  "expoServerPort": 19000,
+  "packagerPort": 19000,
+  "expoServerNgrokUrl": "https://n2-3ne.anonymous.appmobilepedidos.exp.direct",
+  "packagerNgrokUrl": "https://n2-3ne.anonymous.appmobilepedidos.exp.direct",
+  "ngrokPid": 16364,
+  "packagerPid": null,
+  "webpackServerPort": null
+}

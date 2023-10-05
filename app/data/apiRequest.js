@@ -1,41 +1,44 @@
-// export const callApi = async (endpoint, method = 'GET', data = null) => {
-//   try {
-//     const urlbase = 'http://190.210.81.148:33530/';
-//     const url = `${urlbase}${endpoint}`;
-//     const headers = {
-//       'Content-Type': 'application/json',
-//       // Add any other headers you need here
-//     };
+// export default function callApi() {
+//     const url = "localhost:88/databaseUsuarios"
+//     useEffect(() => {
+//         fetch(url)
+//         .then((resp) => resp.json())
+//         .then((json) => setData(json))
+//         .catch((error) => console.error(error))
+//         .finally(() => setLoading(false));
+//     }, []);
 
-//     const options = {
-//       method,
-//       headers,
-//     };
+//     <View style={styles.container}>
+//     {loading ? (
+//         <Text>Loading...</Text>
+//     ) : (
+//         data.map((post) => {
+//         return (
+//             <View>
+//             <Text style={styles.title}>{post.title}</Text>
+//             <Text>{post.body}</Text>
+//             </View>
+//         );
+//         })
+//     )}
+//     </View>;
 
-//     if (data) {
-//       options.body = JSON.stringify(data);
-//     }
+//     const styles = StyleSheet.create({
+//         container: {
+//         flex: 1,
+//         justifyContent: "center",
+//         backgroundColor: "#ecf0f1",
+//         padding: 8,
+//         },
+//         title: {
+//         fontSize: 30,
+//         fontWeight: "bold",
+//         },
+//     });
+// }
 
-//     const response = await fetch(url, options);
+// api.js
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-//     if (!response.ok) {
-//       throw new Error(`Network response was not ok (status ${response.status})`);
-//     }
-
-//     const jsonResponse = await response.json();
-//     const latitud = jsonResponse.latitud;
-//     const longitud = jsonResponse.longitud;
-//     return { latitud, longitud };
-//   } catch (error) {
-//     console.error('Network request failed:', error.message);
-//     throw error;
-//   }
-// };
-=======
-=======
->>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 const url = 'localhost:88'; // Replace with your API base URL
 
 export const callApi = async (endpoint, method = 'GET', data = null) => {
@@ -67,7 +70,3 @@ export const callApi = async (endpoint, method = 'GET', data = null) => {
     throw error;
   }
 };
-<<<<<<< HEAD
->>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
-=======
->>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)

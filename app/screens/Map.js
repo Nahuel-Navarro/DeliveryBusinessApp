@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-import { callApi } from './api';
+import { callApi } from '../data/apiRequest';
 
 const fetchData = async () => {
   try {

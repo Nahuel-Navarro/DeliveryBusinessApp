@@ -19,6 +19,7 @@
 //     const response = await fetch(url, options);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //     if (!response.ok) {
 //       throw new Error(`Network response was not ok (status ${response.status})`);
 //     }
@@ -33,6 +34,8 @@
 //   }
 // };
 =======
+=======
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 const url = 'localhost:88'; // Replace with your API base URL
 
 export const callApi = async (endpoint, method = 'GET', data = null) => {
@@ -64,4 +67,7 @@ export const callApi = async (endpoint, method = 'GET', data = null) => {
     throw error;
   }
 };
+<<<<<<< HEAD
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
+=======
 >>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)

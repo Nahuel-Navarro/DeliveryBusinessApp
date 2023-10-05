@@ -5,6 +5,7 @@ import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import { callApi } from '../data/apiRequest';
 
 const callApi = async (endpoint, method = 'GET', data = null) => {
@@ -12,12 +13,17 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
     // const urlbase = 'http://190.210.81.148:33530/';
     const urlbase = 'http://192.168.48.223/';
 =======
+=======
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 
  // Replace with your API base URL
  const callApi = async (endpoint, method = 'GET', data = null) => {
   
   try {
     const urlbase = 'http://192.168.48.223:88/';
+<<<<<<< HEAD
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
+=======
 >>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
     const url = `${urlbase}${endpoint}`;
     const headers = {
@@ -33,6 +39,10 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
     if (data) {
       options.body = JSON.stringify(data);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 =======
       
 >>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
@@ -41,6 +51,7 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
     const response = await fetch(url, options);
 
     if (!response.ok) {
+<<<<<<< HEAD
 <<<<<<< HEAD
       throw new Error(`Network response was not ok (status ${response.status})`);
     }
@@ -55,6 +66,8 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
   }
 };
 =======
+=======
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
       throw new Error('Network response was not ok');
     }
 
@@ -68,6 +81,9 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
 
 
 
+<<<<<<< HEAD
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
+=======
 >>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 export default function Map() {
   // const [data, setData] = useState(undefined);

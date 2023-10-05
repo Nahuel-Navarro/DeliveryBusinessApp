@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
+<<<<<<< HEAD
 // import { callApi } from '../data/apiRequest';
 
 const callApi = async (endpoint, method = 'GET', data = null) => {
   try {
     // const urlbase = 'http://190.210.81.148:33530/';
     const urlbase = 'http://192.168.48.223/';
+=======
+
+ // Replace with your API base URL
+ const callApi = async (endpoint, method = 'GET', data = null) => {
+  
+  try {
+    const urlbase = 'http://192.168.48.223:88/';
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
     const url = `${urlbase}${endpoint}`;
     const headers = {
       'Content-Type': 'application/json',
@@ -23,11 +32,16 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
 
     if (data) {
       options.body = JSON.stringify(data);
+<<<<<<< HEAD
+=======
+      
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
     }
 
     const response = await fetch(url, options);
 
     if (!response.ok) {
+<<<<<<< HEAD
       throw new Error(`Network response was not ok (status ${response.status})`);
     }
 
@@ -40,7 +54,33 @@ const callApi = async (endpoint, method = 'GET', data = null) => {
     throw error;
   }
 };
+=======
+      throw new Error('Network response was not ok');
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse; // Return the entire JSON response
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
+
+>>>>>>> parent of 680f6d5f (	modified:   app/data/apiRequest.js)
 export default function Map() {
+  // const [data, setData] = useState(undefined);
+
+  // const getAPIdata = async() =>{
+  //   const url = "localhost:88/databaseUsuarios";
+  //   let result = await fetch(url);
+  //   result = result.json();
+  //   setData(result)
+  // }
+  // useEffect(() => {
+  //   getAPIdata();
+  // },[])
 
   const fetchData = async () => {
     try {

@@ -1,73 +1,33 @@
-// export default function callApi() {
-//     const url = "localhost:88/databaseUsuarios"
-//     useEffect(() => {
-//         fetch(url)
-//         .then((resp) => resp.json())
-//         .then((json) => setData(json))
-//         .catch((error) => console.error(error))
-//         .finally(() => setLoading(false));
-//     }, []);
+// export const callApi = async (endpoint, method = 'GET', data = null) => {
+//   try {
+//     const urlbase = 'http://190.210.81.148:33530/';
+//     const url = `${urlbase}${endpoint}`;
+//     const headers = {
+//       'Content-Type': 'application/json',
+//       // Add any other headers you need here
+//     };
 
-//     <View style={styles.container}>
-//     {loading ? (
-//         <Text>Loading...</Text>
-//     ) : (
-//         data.map((post) => {
-//         return (
-//             <View>
-//             <Text style={styles.title}>{post.title}</Text>
-//             <Text>{post.body}</Text>
-//             </View>
-//         );
-//         })
-//     )}
-//     </View>;
+//     const options = {
+//       method,
+//       headers,
+//     };
 
-//     const styles = StyleSheet.create({
-//         container: {
-//         flex: 1,
-//         justifyContent: "center",
-//         backgroundColor: "#ecf0f1",
-//         padding: 8,
-//         },
-//         title: {
-//         fontSize: 30,
-//         fontWeight: "bold",
-//         },
-//     });
-// }
+//     if (data) {
+//       options.body = JSON.stringify(data);
+//     }
 
-// api.js
+//     const response = await fetch(url, options);
 
-export default callApi = async (endpoint, method = 'GET', data = null) => {
-  
-  try {
-    const urlbase = 'http://192.168.48.223:88/';
-    const url = `${urlbase}${endpoint}`;
-    const headers = {
-      'Content-Type': 'application/json',
-      // Add any other headers you need here
-    };
+//     if (!response.ok) {
+//       throw new Error(`Network response was not ok (status ${response.status})`);
+//     }
 
-    const options = {
-      method,
-      headers,
-    };
-
-    if (data) {
-      options.body = JSON.stringify(data);
-      
-    }
-
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const jsonResponse = await response.json();
-    return jsonResponse; // Return the entire JSON response
-  } catch (error) {
-    throw error;
-  }
-};
+//     const jsonResponse = await response.json();
+//     const latitud = jsonResponse.latitud;
+//     const longitud = jsonResponse.longitud;
+//     return { latitud, longitud };
+//   } catch (error) {
+//     console.error('Network request failed:', error.message);
+//     throw error;
+//   }
+// };

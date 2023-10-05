@@ -4,13 +4,47 @@ import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-import callApi from '../data/apiRequest';
+// import { callApi } from '../data/apiRequest';
+
+const callApi = async (endpoint, method = 'GET', data = null) => {
+  try {
+    // const urlbase = 'http://190.210.81.148:33530/';
+    const urlbase = 'http://192.168.48.223/';
+    const url = `${urlbase}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      // Add any other headers you need here
+    };
+
+    const options = {
+      method,
+      headers,
+    };
+
+    if (data) {
+      options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok (status ${response.status})`);
+    }
+
+    const jsonResponse = await response.json();
+    const latitud = jsonResponse.latitud;
+    const longitud = jsonResponse.longitud;
+    return { latitud, longitud };
+  } catch (error) {
+    console.error('Network request failed:', error.message);
+    throw error;
+  }
+};
 export default function Map() {
 
   const fetchData = async () => {
     try {
       const response = await callApi('databaseClientes', 'GET');
-      //console.log('ESTA ES LA RESPUESTA:'+response); // This will log the entire JSON response
       console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
 
     } catch (error) {
@@ -18,6 +52,21 @@ export default function Map() {
       // Handle errors here
     }
   };
+  // const fetchData = async () => {
+  //   try {
+  //     const { latitude, longitude } = await callApi('databaseClientes', 'GET');
+  //     setMapRegion({
+  //       latitude,
+  //       longitude,
+  //       latitudeDelta: 0.0922,
+  //       longitudeDelta: 0.0421,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     console.log('Error fetcheando data');
+  //   }
+  // };
+
   useEffect(() => {
     fetchData();
   }, []);

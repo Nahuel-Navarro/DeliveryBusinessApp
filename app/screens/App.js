@@ -300,8 +300,8 @@ const style = StyleSheet.create ({
   div1pedidosText:{
     color:"#0e485e",
     fontSize:25,
-    fontWeight: 'bold',
-    marginBottom:10
+    marginBottom:10,
+    fontFamily: 'OpenSans-Bold',
   },
   modal:{
     justifyContent: 'flex-start',
@@ -350,15 +350,15 @@ const style = StyleSheet.create ({
     borderRadius: 10,
     marginBottom:10,
     shadowColor:"#0e485e", 
-    shadowOffset:{width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius:3, 
-    elevation:15
+    shadowOffset:{width: 0, height: 18},
+    shadowOpacity: 0.25,
+    shadowRadius:20.00, 
+    elevation:24
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FDB335'
+    color: '#FDB335',
+    fontFamily: 'OpenSans-SemiBold'
   },
   expandedContent: {
     marginTop: 10,
@@ -473,7 +473,8 @@ const style = StyleSheet.create ({
    botonAddText:{
     textAlign:'center',
     color:'#0e485e',
-    fontSize:18
+    fontSize:18,
+    fontFamily:'OpenSans-SemiBold'
    }, 
    optionText:{
     fontFamily:'OpenSans-Regular',

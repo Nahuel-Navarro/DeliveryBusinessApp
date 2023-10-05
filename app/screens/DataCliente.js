@@ -47,6 +47,8 @@ const DataCliente = ({route}) => {
                 <View style={styles.viewcolumn}>
                     {/* Productos mas pedidos */}
                     <Text style={styles.texttitle2}>Productos a Entregar</Text>
+                    <Text style={styles.textsmall}>Fecha de entrega: </Text>
+                    <Text style={styles.textsmall}>Lista:</Text>
                 </View>
             </View>
             

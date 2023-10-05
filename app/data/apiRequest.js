@@ -39,11 +39,11 @@
 
 // api.js
 
-const url = 'localhost:88'; // Replace with your API base URL
-
-export const callApi = async (endpoint, method = 'GET', data = null) => {
+export default callApi = async (endpoint, method = 'GET', data = null) => {
+  
   try {
-    const url = `${url}${endpoint}`;
+    const urlbase = 'http://192.168.48.223:88/';
+    const url = `${urlbase}${endpoint}`;
     const headers = {
       'Content-Type': 'application/json',
       // Add any other headers you need here
@@ -56,6 +56,7 @@ export const callApi = async (endpoint, method = 'GET', data = null) => {
 
     if (data) {
       options.body = JSON.stringify(data);
+      
     }
 
     const response = await fetch(url, options);

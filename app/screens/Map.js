@@ -4,56 +4,8 @@ import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-
- // Replace with your API base URL
- const callApi = async (endpoint, method = 'GET', data = null) => {
-  
-  try {
-    const urlbase = 'http://192.168.48.223:88/';
-    const url = `${urlbase}${endpoint}`;
-    const headers = {
-      'Content-Type': 'application/json',
-      // Add any other headers you need here
-    };
-
-    const options = {
-      method,
-      headers,
-    };
-
-    if (data) {
-      options.body = JSON.stringify(data);
-      
-    }
-
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const jsonResponse = await response.json();
-    return jsonResponse; // Return the entire JSON response
-  } catch (error) {
-    throw error;
-  }
-};
-
-
-
-
+import callApi from '../data/apiRequest';
 export default function Map() {
-  // const [data, setData] = useState(undefined);
-
-  // const getAPIdata = async() =>{
-  //   const url = "localhost:88/databaseUsuarios";
-  //   let result = await fetch(url);
-  //   result = result.json();
-  //   setData(result)
-  // }
-  // useEffect(() => {
-  //   getAPIdata();
-  // },[])
 
   const fetchData = async () => {
     try {

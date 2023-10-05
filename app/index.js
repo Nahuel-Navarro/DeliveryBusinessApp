@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Splash,Onboarding,Login,Home,Clientes,DataCliente, App} from './screens/index'
 import { clienteByID } from './helpers/clienteByID';
+import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map } from './screens/index'
 
 const Stack = createNativeStackNavigator();
 const index = ()=>{
@@ -15,6 +15,7 @@ const index = ()=>{
               <Stack.Screen name="App" component={App} options={{ headerTitle: '' }} />
               <Stack.Screen name="Clientes" component={Clientes} />
               <Stack.Screen name="DataCliente" component={DataCliente} initialParams={{usu:clienteByID}}/>
+              <Stack.Screen name="Map" component={Map} />
               
             </Stack.Navigator>
           

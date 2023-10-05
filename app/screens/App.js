@@ -121,7 +121,7 @@ const App=({navigation, route})=>{
                 />  
                 <Text style={style.optionText}>Articulos</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>navigation.navigate("Articulos")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Map")} 
                 style={style.optionBottom}
               >
                 <Image

@@ -1,25 +1,28 @@
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button,Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-import { callApi } from '../data/apiRequest';
+//import YourComponent from '../data/apiRequest2.0';
+ import  callApi  from '../data/apiRequest';
 
-const fetchData = async () => {
-  try {
-    const response = await callApi('/databaseUsuarios', 'GET');
-    console.log(response);
-
-    const responseData = response.data;
-    console.log(responseData);
-
-  } catch (error) {
-    console.error(error);
-    console.log("No se pudo acceder a la API")
-  }
-};
 export default function Map() {
+
+  const fetchData = async () => {
+    try {
+      const response = await callApi('databaseClientes', 'GET');
+      console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
+
+    } catch (error) {
+      console.error(error);
+      // Handle errors here
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const [mapRegion, setMapRegion] = useState({
     latitude: -31.31320035959943,
     longitude: -64.22334981122708,
@@ -43,7 +46,7 @@ export default function Map() {
       const initialRegion = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.0922,
+        latitudeDelta: 0.0922, 
         longitudeDelta: 0.0421,
       };
   

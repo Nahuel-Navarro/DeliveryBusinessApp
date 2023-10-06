@@ -94,7 +94,7 @@ const App=({navigation, route})=>{
                   style={style.menuLogo}
                 />
               </View>
-              <TouchableOpacity on_press={()=>navigation.navigate("Clientes")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Clientes")} 
                 style={style.optionBottom}>
                     <Image
                       source={require('../assets/cliente.png')}

@@ -40,8 +40,8 @@ const Login = ({navigation}) => {
                 </View>
 
                 <View style={{justifyContent:'center',alignItems:'center',marginTop:30}}>
-                    <Buttons  btn_text={"Ingresar"} on_press={()=>validateLogin(formData,navigation)} screenOptions={{headerShown:false}}/>
-                </View>
+                    <Buttons  btn_text={"Ingresar"} onPress={()=>validateLogin(formData,navigation)}/>
+</View>
 
         </ScrollView>
     )

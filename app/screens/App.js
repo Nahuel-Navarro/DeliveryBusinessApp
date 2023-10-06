@@ -41,7 +41,7 @@ const App=({navigation, route})=>{
   useEffect(() => {
     const entregas = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Entregar');
     const cobros = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Cobrar');
-    console.log(vendedor)
+    //console.log(vendedor)
     setEntregasCliBorrar(entregas);
     setCobrosCliBorrar(cobros);
   }, [vendedor]);
@@ -62,6 +62,8 @@ const App=({navigation, route})=>{
   //Este lo que va a hacer es verificar si todos estan entregados
   const todosEntregados = entregasCliBorar.length === 0;
   const todosCobrados = cobrosCliBorrar.length === 0;
+
+  
   return(
       <ScrollView>
       <View style={style.container}>
@@ -72,11 +74,13 @@ const App=({navigation, route})=>{
             
           />
         </TouchableOpacity>
+        <View style={style.separadorLogoView}>
         <Image
           source={require("../assets/MS_bco.png")}
           style={style.Logo}
           
         /> 
+        </View>
         <Modal 
           isVisible={isModalVisible} 
           style={style.modal} 
@@ -283,11 +287,15 @@ const style = StyleSheet.create ({
     width: "100%",
     height:50,
     backgroundColor: "#0e485e",
-    gap:70,
+    flex:1,
     flexDirection:'row',
-    justifyContent:'flex-start',
     alignItems:'center',
-    marginBottom:30
+    marginBottom:30,
+  },
+  separadorLogoView:{
+    width:"100%",
+    alignItems:'center',
+    position:'absolute'
   },
   Logo:{
     height:35,

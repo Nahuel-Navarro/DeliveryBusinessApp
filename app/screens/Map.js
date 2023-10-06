@@ -11,6 +11,8 @@ export default function Map() {
     try {
       const response = await callApi('databaseClientes', 'GET');
       //console.log('ESTA ES LA RESPUESTA:'+response); // This will log the entire JSON response
+      console.log('array')//ARRAY DE USUARIOS
+
       console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
 
     } catch (error) {
@@ -34,6 +36,7 @@ export default function Map() {
 
   useEffect(() => {
     (async () => {
+      
       let { status } = await Location.requestForegroundPermissionsAsync();
   
       if (status !== 'granted') {

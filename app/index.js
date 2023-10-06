@@ -1,20 +1,19 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { clienteByID } from './helpers/clienteByID';
-import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map } from './screens/index'
+import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Gif } from './screens/index'
 
 const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator screenOptions={{headerShown:false}} >
+            <Stack.Navigator >
               
-              <Stack.Screen name="Splash" component={Splash} options={{ headerTitle: '' }}
+              <Stack.Screen name="Splash" component={Splash} 
               />
-              <Stack.Screen name="Onboarding" component={Onboarding} options={{ headerTitle: '' }}/>
-              <Stack.Screen name="Login" component={Login} options={{ headerTitle: '' }}/>
-              <Stack.Screen name="App" component={App} options={{ headerTitle: '' }} />
+              <Stack.Screen name="Onboarding" component={Onboarding} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="App" component={App}  />
               <Stack.Screen name="Clientes" component={Clientes} />
-              <Stack.Screen name="DataCliente" component={DataCliente} initialParams={{usu:clienteByID}}/>
+              <Stack.Screen name="DataCliente" component={DataCliente} />
               <Stack.Screen name="Map" component={Map} />
               
             </Stack.Navigator>

@@ -60,7 +60,7 @@ export default callApi = async (endpoint, method = 'GET', data = null) => {
     }
     console.log(url)
     const response = await fetch(url, options);
-    console.log(response)
+    
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

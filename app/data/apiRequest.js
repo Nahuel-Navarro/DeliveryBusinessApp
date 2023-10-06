@@ -2,7 +2,9 @@ export default callApi = async (endpoint, method = 'GET', data = null) => {
   try {
     
     //const urlbase = 'http://190.210.81.148:33530/';
+     //const urlbase = 'http://192.168.48.250:33533/';
      const urlbase = 'http://192.168.48.223:88/';
+     //const urlbase = "localhost:88/";
      
     const url = `${urlbase}${endpoint}`;
     const headers = {

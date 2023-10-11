@@ -39,7 +39,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla Clientes creada con éxito");
+        // console.log("Tabla Clientes creada con éxito");
         // clientes.forEach((cli)=>{tx.executeSql(
         //   'INSERT INTO Clientes (id, nombre, direccion, latitud, longitud, mail, telefono, iva, cuit, convent, vendedor) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         //     [
@@ -66,7 +66,7 @@ export function createTables(db) {
         //   );})
       },
       (_, error) => {
-        console.log("Error al crear tabla Clientes: " + error.message);
+        // console.log("Error al crear tabla Clientes: " + error.message);
       }
     );
 
@@ -85,7 +85,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla Usuarios creada con éxito");
+        // console.log("Tabla Usuarios creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Usuarios
         // tx.executeSql(
@@ -114,13 +114,13 @@ export function createTables(db) {
             
           },
           (_, error) => {
-            console.log("Error al seleccionar usuarios: " + error.message);
+            //console.log("Error al seleccionar usuarios: " + error.message);
           }
         );
         
       },
       (_, error) => {
-        console.log("Error al crear tabla Usuarios: " + error.message);
+        //console.log("Error al crear tabla Usuarios: " + error.message);
       }
     );
 
@@ -139,7 +139,7 @@ export function createTables(db) {
       // `,
       [],
       (_, result) => {
-        console.log("Tabla Deudas creada con éxito");
+        //console.log("Tabla Deudas creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Deudas
         // tx.executeSql(
@@ -165,13 +165,13 @@ export function createTables(db) {
             
           },
           (_, error) => {
-            console.log("Error al seleccionar deudas: " + error.message);
+           // console.log("Error al seleccionar deudas: " + error.message);
           }
         );
         
       },
       (_, error) => {
-        console.log("Error al crear tabla Deudas: " + error.message);
+        //console.log("Error al crear tabla Deudas: " + error.message);
       }
     );
 
@@ -187,7 +187,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla Pedidos creada con éxito");
+        //console.log("Tabla Pedidos creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Pedidos
         // tx.executeSql(
@@ -213,13 +213,13 @@ export function createTables(db) {
             
           },
           (_, error) => {
-            console.log("Error al seleccionar pedidos: " + error.message);
+           // console.log("Error al seleccionar pedidos: " + error.message);
           }
         );
         
       },
       (_, error) => {
-        console.log("Error al crear tabla Pedidos: " + error.message);
+       // console.log("Error al crear tabla Pedidos: " + error.message);
       }
     );
 
@@ -236,7 +236,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla DetallePedidos creada con éxito");
+        //console.log("Tabla DetallePedidos creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla DetallePedidos
         // tx.executeSql(
@@ -263,13 +263,13 @@ export function createTables(db) {
             
           },
           (_, error) => {
-            console.log("Error al seleccionar detallePedidos: " + error.message);
+           // console.log("Error al seleccionar detallePedidos: " + error.message);
           }
         );
         
       },
       (_, error) => {
-        console.log("Error al crear tabla DetallePedidos: " + error.message);
+       // console.log("Error al crear tabla DetallePedidos: " + error.message);
       }
     );
 
@@ -286,7 +286,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla Productos creada con éxito");
+        //console.log("Tabla Productos creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Productos
         // tx.executeSql(
@@ -312,13 +312,13 @@ export function createTables(db) {
             
           },
           (_, error) => {
-            console.log("Error al seleccionar productos: " + error.message);
+           // console.log("Error al seleccionar productos: " + error.message);
           }
         );
         
       },
       (_, error) => {
-        console.log("Error al crear tabla Productos: " + error.message);
+        //console.log("Error al crear tabla Productos: " + error.message);
       }
     );
   });
@@ -334,7 +334,7 @@ export function getUsuarios(db) {
       [],
       (_, { rows: { _array } }) => {
         const usuariosArray = _array || [];
-        console.log(usuariosArray);
+       // console.log(usuariosArray);
       }
       , (a) => { console.log(a) }, console.log('bien'));
   });

@@ -5,18 +5,21 @@ import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
 import callApi from '../data/apiRequest';
-export default function Map() {
+import * as Permissions from 'expo-permissions';
 
+export default function Map() {
+  const [errorMsg, setErrorMsg] = useState(null); 
+  
   const fetchData = async () => {
     try {
       const response = await callApi('databaseClientes', 'GET');
-      //console.log('ESTA ES LA RESPUESTA:'+response); // This will log the entire JSON response
+      //console.log('ESTA ES LA RESPUESTA:'+response); 
       console.log('array')//ARRAY DE USUARIOS
-
+      console.log('La url es: '+ callApi('databaseClientes', 'GET'))
       console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
 
     } catch (error) {
-      console.error(error);
+      console.error('El error es= '+ error);
       // Handle errors here
     }
   };
@@ -61,11 +64,11 @@ export default function Map() {
       try {
         const data = await getMapInfo(db);
 
-        console.log("Marker Data:", data);
+        //console.log("Marker Data:", data);
 
         setMarkers(data);
       } catch (error) {
-        console.error('Error fetching data from the database:', error);
+        //console.error('Error fetching data from the database:', error);
       }
     })();
   }, []);

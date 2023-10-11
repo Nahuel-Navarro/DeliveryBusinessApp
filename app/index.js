@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Gif } from './screens/index'
+import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Gif, Prueba } from './screens/index'
 
 const Stack = createNativeStackNavigator();
 const index = ()=>{
@@ -15,6 +15,7 @@ const index = ()=>{
               <Stack.Screen name="Clientes" component={Clientes} />
               <Stack.Screen name="DataCliente" component={DataCliente} />
               <Stack.Screen name="Map" component={Map} />
+              <Stack.Screen name="Prueba" component={Prueba} />
               
             </Stack.Navigator>
           

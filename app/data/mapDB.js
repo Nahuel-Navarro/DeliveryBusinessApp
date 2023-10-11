@@ -30,21 +30,21 @@ export function createTables(db) {
       `,
             [],
             (_, result) => {
-                console.log("Tabla MapInfo creada con éxito");
+                // console.log("Tabla MapInfo creada con éxito");
 
                 // Insertar un usuario de ejemplo después de crear la tabla Usuarios
                 tx.executeSql(
-                    "INSERT INTO MapInfo (id, Latitude, Longitude, Descripcion) VALUES ('Colonia Caroya', '-31.021563283031128', '-64.06169422829703', 'Salames ashe')",
+                    "INSERT INTO MapInfo (id, Latitude, Longitude, Descripcion) VALUES ('Multisoft', '-31.021563283031128', '-64.06169422829703', 'Salames ashe')",
                     [],
                     (_, { rowsAffected }) => {
                         if (rowsAffected > 0) {
-                            console.log("Inserción exitosa");
+                            //console.log("Inserción exitosa");
                         } else {
-                            console.log("Error en la inserción");
+                            //console.log("Error en la inserción");
                         }
                     },
                     (_, error) => {
-                        console.log("Error durante la inserción: " + error.message);
+                        //console.log("Error durante la inserción: " + error.message);
                     }
                 );
 
@@ -56,13 +56,13 @@ export function createTables(db) {
 
                     },
                     (_, error) => {
-                        console.log("Error al seleccionar MapInfo: " + error.message);
+                        //console.log("Error al seleccionar MapInfo: " + error.message);
                     }
                 );
 
             },
             (_, error) => {
-                console.log("Error al crear tabla MapInfo: " + error.message);
+                //console.log("Error al crear tabla MapInfo: " + error.message);
             }
         );
     });

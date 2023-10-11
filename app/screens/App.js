@@ -107,7 +107,7 @@ const App=({navigation, route})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Clientes')} 
+              <TouchableOpacity onPress={() => navigation.navigate('Prueba')} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}

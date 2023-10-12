@@ -3,19 +3,89 @@ import { StatusBar, ScrollView, TouchableOpacity, View,Text } from 'react-native
 import { clienteByID } from '../helpers/clienteByID';
 import ClienteCard from './ClienteCard';
 import { usuarios } from '../data/usuarios';
+import {openDatabase} from '../data/db';
+import { clientes } from '../data/clientes';
 
+const db = openDatabase();
+
+function leerClientesBD(){
+  db.transaction((tx) => {
+    tx.executeSql(
+      'SELECT * FROM Clientes',
+      [],
+      (_, {rows}) => {
+        const clientes = rows._array
+        console.log('Los clientes cargados son: ', clientes)
+      },
+      (_, error) => {
+        console.error("Error al querer leer", error.message);
+      }
+    )
+  })
+}
+export function clientesSQLite() {
+  db.transaction((tx) => {
+    clientes.forEach((cliente) => {
+      tx.executeSql(
+        'SELECT * FROM Clientes WHERE id = ?',
+        [cliente.id],
+        (_, { rows }) => {
+          if (rows.length === 0) {
+            tx.executeSql(
+              'INSERT INTO Clientes (nombre, direccion, latitud, longitud, mail, telefono, iva, cuit, convent, vendedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+              [
+                cliente.nombre,
+                cliente.direccion,
+                cliente.latitud,
+                cliente.longitud,
+                cliente.mail,
+                cliente.telefono,
+                cliente.iva,
+                cliente.cuit,
+                cliente.condvent,
+                cliente.vendedor,
+              ],
+              (_, { rowsAffected }) => {
+                if (rowsAffected > 0) {
+                  console.log('Cliente insertado con éxito');
+                } else {
+                  console.log('Error en la inserción del cliente');
+                }
+              },
+              (_, error) => {
+                console.log('Error durante la inserción del cliente: ' + error.message);
+              }
+            );
+          } else {
+            console.log('Cliente ya existe en la base de datos');
+          }
+        },
+        (_, error) => {
+          console.log('Error durante la consulta: ' + error.message);
+        }
+      );
+    });
+  });
+}
 
 
 const Clientes = ({navigation , route}) => {
 
   const usu = route.params;
-  const vendedor = "001" ;
+  const vendedor = '001' ;
   console.log(usu)
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
     const cli = clienteByID(vendedor);
-    setClientes(cli);}, [vendedor]);
+    setClientes(cli);}, 
+    [vendedor]);
+    useEffect(() => {
+      clientesSQLite();
+    }, []);
+    useEffect(() =>{
+      leerClientesBD();
+    })
     
     return (
         

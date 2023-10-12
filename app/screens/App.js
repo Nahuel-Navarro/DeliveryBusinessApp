@@ -117,7 +117,7 @@ const App=({navigation, route})=>{
               </TouchableOpacity>
               <TouchableOpacity 
                 style={style.optionBottom}
-                onPress={()=> navigation.navigate('Clientes')}
+                onPress={()=> navigation.navigate('Producto')}
                 >
                 <Image
                   source={require('../assets/carrito-de-supermercado.png')}
@@ -129,10 +129,10 @@ const App=({navigation, route})=>{
                 style={style.optionBottom}
               >
                 <Image
-                  source={require('../assets/whatsapp.png')}
+                  source={require('../assets/ubicacion.png')}
                   style={style.imgOptionMenu}
                 />  
-                <Text style={style.optionText}>Contacto</Text>
+                <Text style={style.optionText}>Map</Text>
               </TouchableOpacity>
                 <View style={style.ViewStyleFooter}>
                   <Text></Text>

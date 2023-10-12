@@ -275,6 +275,56 @@ export function createTables(db) {
 
     tx.executeSql(
       `
+        CREATE TABLE IF NOT EXISTS Articulos (
+          id INTEGER PRIMARY KEY,
+          articulo TEXT,
+          nombre TEXT,
+          descripcion TEXT,
+          precio REAL,
+          stock INT,
+          url TEXT
+        )
+      `,
+      [],
+      (_, result) => {
+        console.log("Tabla Articulos creada con éxito");
+        
+        // Insertar un usuario de ejemplo después de crear la tabla Productos
+        // tx.executeSql(
+        //   "INSERT INTO Productos (id, articulo, nombre, descripcion, precio, stock) VALUES (null, '88', 'aa', 'aaa', '5000', '5')",
+        //   [],
+        //   (_, { rowsAffected }) => {
+        //     if (rowsAffected > 0) {
+        //       console.log("Inserción exitosa");
+        //     } else {
+        //       console.log("Error en la inserción");
+        //     }
+        //   },
+        //   (_, error) => {
+        //     console.log("Error durante la inserción: " + error.message);
+        //   }
+        // );
+        
+        // Seleccionar y mostrar Productos después de la inserción
+        tx.executeSql(
+          "SELECT * FROM Articulos",
+          [],
+          (_, { rows }) => {
+            
+          },
+          (_, error) => {
+           // console.log("Error al seleccionar productos: " + error.message);
+          }
+        );
+        
+      },
+      (_, error) => {
+        //console.log("Error al crear tabla Productos: " + error.message);
+      }
+    );
+
+    tx.executeSql(
+      `
         CREATE TABLE IF NOT EXISTS Productos (
           id INTEGER PRIMARY KEY,
           articulo TEXT,
@@ -334,10 +384,9 @@ export function getUsuarios(db) {
       [],
       (_, { rows: { _array } }) => {
         const usuariosArray = _array || [];
-       // console.log(usuariosArray);
+        console.log('usuarios array' + usuariosArray);
       }
       , (a) => { console.log(a) }, console.log('bien'));
   });
   return usuariosArray;
 }
-

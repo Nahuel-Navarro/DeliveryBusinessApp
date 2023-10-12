@@ -259,4 +259,17 @@ export const clientes = [
         'condvent': 'Cobrar',
         'vendedor': '003'
     },
+    {
+        'id': '00021',
+        'nombre': 'Valentina Ro',
+        'direccion': 'SSS',
+        'latitud': '-51.4129',
+        'longitud': '-74.6087',
+        'mail': 'S@gmail.com',
+        'telefono': '2615881375',
+        'iva': 'Responsable Inscripto',
+        'cuit': '30-20202020-7',
+        'condvent': 'Cobrar',
+        'vendedor': '004'
+    }
 ];

@@ -7,4 +7,5 @@ export {default as DataCliente} from './DataCliente';
 export {default as App} from './App';
 export {default as Map} from './Map';
 export {default as Prueba} from './prueba';
+export {default as Product} from './Articulos';
 

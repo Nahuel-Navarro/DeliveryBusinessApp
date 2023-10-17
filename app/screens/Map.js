@@ -4,29 +4,12 @@ import { useEffect, useState } from 'react';
 import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
-import callApi from '../data/apiRequest';
+import { clientes } from '../data/clientes';
 import * as Permissions from 'expo-permissions';
 
 export default function Map() {
-  const [errorMsg, setErrorMsg] = useState(null); 
-  
-  const fetchData = async () => {
-    try {
-      const response = await callApi('databaseClientes', 'GET');
-      //console.log('ESTA ES LA RESPUESTA:'+response); 
-      console.log('array')//ARRAY DE USUARIOS
-      console.log('La url es: '+ callApi('databaseClientes', 'GET'))
-      console.log(response.databaseClientes_response.clientes)//ARRAY DE USUARIOS
 
-    } catch (error) {
-      console.error('El error es= '+ error);
-      // Handle errors here
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-  
+  const [errorMsg, setErrorMsg] = useState(null); 
   const [mapRegion, setMapRegion] = useState({
     latitude: -31.31320035959943,
     longitude: -64.22334981122708,
@@ -34,8 +17,9 @@ export default function Map() {
     longitudeDelta: 0.0421,
   });
 
-  const [markers, setMarkers] = useState([]); // Initialize with imported data
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [markers, setMarkers] = useState([]); // Initialize with imported data
+
 
   useEffect(() => {
     (async () => {
@@ -58,18 +42,13 @@ export default function Map() {
       setMapRegion(initialRegion);
       setCurrentLocation(location.coords);
   
-      const db = openDatabase();
-      createTables(db);
-  
-      try {
-        const data = await getMapInfo(db);
+      setMarkers(clientes.map((cliente) => ({
+        latitude: parseFloat(cliente.latitud),
+        longitude: parseFloat(cliente.longitud),
+        title: cliente.nombre
+        // You can add other properties from the cliente object as needed
+      })));
 
-        //console.log("Marker Data:", data);
-
-        setMarkers(data);
-      } catch (error) {
-        //console.error('Error fetching data from the database:', error);
-      }
     })();
   }, []);
 

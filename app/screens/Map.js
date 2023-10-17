@@ -1,7 +1,6 @@
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, Button,Text } from 'react-native';
 import { useEffect, useState } from 'react';
-import { openDatabase, createTables, getMapInfo} from '../data/mapDB';
 import * as Location from 'expo-location';
 import * as Linking from 'expo-linking';
 import { clientes } from '../data/clientes';
@@ -45,8 +44,8 @@ export default function Map() {
       setMarkers(clientes.map((cliente) => ({
         latitude: parseFloat(cliente.latitud),
         longitude: parseFloat(cliente.longitud),
-        title: cliente.nombre
-        // You can add other properties from the cliente object as needed
+        title: cliente.nombre,
+        vendedor: cliente.vendedor
       })));
 
     })();
@@ -74,24 +73,28 @@ export default function Map() {
     Linking.openURL(routeUrl);
   };
 
+  const vendorIdToDisplay = '004';
+  const filteredMarkers = markers.filter((marker) => marker.vendedor === vendorIdToDisplay);
+  // const filteredMarkers = markers.filter(clientes => clientes.vendedor === '001');
+  
   return (
     <View style={styles.container}>
       <MapView style={styles.map} region={mapRegion}>
-      {currentLocation && (
-        <Marker
-          coordinate={{
-            latitude: currentLocation.latitude,
-            longitude: currentLocation.longitude,
-          }}
-          title="Current Location"
-          image={require('../assets/TruckIcon.png')} // Replace with your custom icon
-          style={{
-            width: 40, // Adjust the width and height as needed
-            height: 40,
-      }}
-    />
-  )}
-        {markers.map((marker, index) => (
+        {currentLocation && (
+          <Marker
+            coordinate={{
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+            }}
+            title="Current Location"
+            image={require('../assets/TruckIcon.png')} // Replace with your custom icon
+            style={{
+              width: 40, // Adjust the width and height as needed
+              height: 40,
+            }}
+          />
+        )}
+        {filteredMarkers.map((marker, index) => (
           <Marker
             key={index}
             coordinate={{
@@ -111,7 +114,7 @@ export default function Map() {
           />
         ))}
       </MapView>
-      
+
       <Button title="Trazar ruta" onPress={generateRouteUrl} />
     </View>
   );

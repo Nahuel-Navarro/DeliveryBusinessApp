@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
-import { clientes } from '../data/clientes';
-import { getUsuarioByMail } from "../helpers/getUsuarioByMail";
-import {validateLogin} from '../helpers/validateLogin';
-import { clienteByID } from '../helpers/clienteByID';
-
+import {openDatabase} from '../data/db';
 
 const App=({navigation, route})=>{
   const [expandedEntregas, setExpandedEntregas] = useState([]);
   const [expandedCobros, setExpandedCobros] = useState([]);
 
-  const [entregasCliBorar, setEntregasCliBorrar] = useState([]);
+  const [entregasCliBorrar, setEntregasCliBorrar] = useState([]);
   const [cobrosCliBorrar, setCobrosCliBorrar] = useState([]);
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
+  const db = openDatabase();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -34,21 +31,42 @@ const App=({navigation, route})=>{
   };
 
     //FILTRO
-
- const vendedor = route.params?.vendedor || "000";
-  
-
-  useEffect(() => {
-    const entregas = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Entregar');
-    const cobros = clientes.filter((cliente) => cliente.vendedor === vendedor && cliente.condvent === 'Cobrar');
-    //console.log(vendedor)
-    setEntregasCliBorrar(entregas);
-    setCobrosCliBorrar(cobros);
-  }, [vendedor]);
+    const vendedor = route.params?.vendedor || "000";
+    function filtrarClientes() {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'SELECT * FROM Clientes WHERE vendedor = ? AND convent = ?',
+          [vendedor, 'Entregar'],
+          (_, { rows }) => {
+            const entregas = rows._array;
+            setEntregasCliBorrar(entregas);
+          },
+          (_, error) => {
+            console.error("Error al filtrar entregas", error.message);
+          }
+        );
+    
+        tx.executeSql(
+          'SELECT * FROM Clientes WHERE vendedor = ? AND convent = ?',
+          [vendedor, 'Cobrar'],
+          (_, { rows }) => {
+            const cobros = rows._array;
+            setCobrosCliBorrar(cobros);
+          },
+          (_, error) => {
+            console.error("Error al filtrar cobros", error.message);
+          }
+        );
+      });
+    }
+    
+    useEffect(() => {
+      filtrarClientes();
+    }, [vendedor]);
 
 //Eliminar tarjetas, lo hago separado por los indices:
   const eliminarTarjetaEntrega = (i) => {
-    const updatedClientes = [...entregasCliBorar];
+    const updatedClientes = [...entregasCliBorrar];
     updatedClientes.splice(i, 1);
     setEntregasCliBorrar(updatedClientes);
   };
@@ -60,7 +78,7 @@ const App=({navigation, route})=>{
   };
 
   //Este lo que va a hacer es verificar si todos estan entregados
-  const todosEntregados = entregasCliBorar.length === 0;
+  const todosEntregados = entregasCliBorrar.length === 0;
   const todosCobrados = cobrosCliBorrar.length === 0;
 
   
@@ -146,7 +164,7 @@ const App=({navigation, route})=>{
           <Text style={style.div1pedidosText}>Entregas</Text>
         </View>
         <View style={style.tarjetasPedidosClientes}>
-          {entregasCliBorar.map((cliente, index) => (
+          {entregasCliBorrar.map((cliente, index) => (
             <TouchableOpacity
               style={style.cardsButton}
               onPress={() => toggleCardEntregas(index)}

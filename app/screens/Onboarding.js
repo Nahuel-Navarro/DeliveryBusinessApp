@@ -1,9 +1,63 @@
 import { Text, View,StatusBar,ImageBackground } from 'react-native';
 import Buttons from '../components/Buttons';
 //import {viewprincstart} from '../constants/styles';
+import {getUsuarios} from '../data/db';
+import { useEffect } from 'react';
+import { openDatabase } from '../data/db';
+import {usuarios} from '../data/usuarios';
+const db = openDatabase()
 
-
+function UsuariosDbCarga() {
+    console.log('Abriendo la base de datos');
+    db.transaction((tx) => {
+    console.log('adentro')
+      usuarios.forEach((usuario) => {
+        console.log('Los usuarios son :', usuario)
+        tx.executeSql(
+          'SELECT * FROM Usuarios WHERE id = ?',
+          [usuario.id],
+          (_, { rows }) => {
+            const prueba = rows._array;
+            console.log(prueba)
+            console.log('el diablo chico')
+            if (rows.length === 0) {
+              tx.executeSql(
+                'INSERT INTO Usuarios (id, mail, contraseña, rol, nombre, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                [
+                  usuario.id,
+                  usuario.mail,
+                  usuario.contraseña,
+                  usuario.rol,
+                  usuario.nombre,
+                  usuario.telefono,
+                  usuario.direccion
+                ],
+                (_, { rowsAffected }) => {
+                  if (rowsAffected > 0) {
+                    console.log('Usuario insertado con éxito');
+                  } else {
+                    console.log('Error en la inserción del usuario');
+                  }
+                },
+                (_, error) => {
+                  console.log('Error durante la inserción del usuario: ' + error.message);
+                }
+              );
+            } else {
+              console.log('Usuario ya existe en la base de datos');
+            }
+          },
+          (_, error) => {
+            console.log('Error durante la consulta: ' + error.message);
+          }
+        );
+      });
+    });
+  }
 const Onboarding = ({navigation}) => {
+    useEffect(() => {
+        UsuariosDbCarga();
+      }, []);
     return (
         <View style={{flex:1,backgroundColor:'#fff'}} >
             <StatusBar barStyle="light-content" hidden={false} backgroundColor="#0e485e" />

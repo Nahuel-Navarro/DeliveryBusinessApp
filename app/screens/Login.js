@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Buttons from '../components/Buttons';
 import { validateLogin } from '../helpers/validateLogin';
 import { createTables, openDatabase } from '../data/db';
+import {usuarios} from '../data/usuarios';
 import * as SQLite from "expo-sqlite";
 
 const db = openDatabase();
@@ -39,6 +40,52 @@ const Login = ({ navigation }) => {
                 }
             );
         },null,console.log('a'));
+        function UsuariosDbCarga() {
+            console.log('Abriendo la base de datos');
+            db.transaction((tx) => {
+            console.log('adentro')
+              usuarios.forEach((usuario) => {
+                tx.executeSql(
+                  'SELECT * FROM Usuarios WHERE id = ?',
+                  [usuario.id],
+                  (_, { rows }) => {
+                    const prueba = rows._array;
+                    console.log(prueba)
+                    if (rows.length === 0) {
+                      tx.executeSql(
+                        'INSERT INTO Usuarios (id, mail, contraseña, rol, nombre, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        [
+                          usuario.id,
+                          usuario.mail,
+                          usuario.contraseña,
+                          usuario.rol,
+                          usuario.nombre,
+                          usuario.telefono,
+                          usuario.direccion
+                        ],
+                        (_, { rowsAffected }) => {
+                          if (rowsAffected > 0) {
+                            console.log('Usuario insertado con éxito');
+                          } else {
+                            console.log('Error en la inserción del usuario');
+                          }
+                        },
+                        (_, error) => {
+                          console.log('Error durante la inserción del usuario: ' + error.message);
+                        }
+                      );
+                    } else {
+                      console.log('Usuario ya existe en la base de datos');
+                    }
+                  },
+                  (_, error) => {
+                    console.log('Error durante la consulta: ' + error.message);
+                  }
+                );
+              });
+            });
+          }
+          UsuariosDbCarga();
 
         
     }, []);

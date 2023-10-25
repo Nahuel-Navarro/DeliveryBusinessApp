@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
                 [],
                 (_, { rows: { _array } }) => {
                     setUsu(_array);
-                    console.log('usu',_array);
+                   // console.log('usu',_array);
                 }
             );
             console.log('cargando clientes');
@@ -36,7 +36,7 @@ const Login = ({ navigation }) => {
                 [],
                 (_, { rows: { _array } }) => {
                     setClientes(_array);
-                    console.log('clientes',_array);
+                    //console.log('clientes',_array);
                 }
             );
         },null,console.log('a'));
@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
                   [usuario.id],
                   (_, { rows }) => {
                     const prueba = rows._array;
-                    console.log(prueba)
+                    //console.log(prueba)
                     if (rows.length === 0) {
                       tx.executeSql(
                         'INSERT INTO Usuarios (id, mail, contraseña, rol, nombre, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -65,7 +65,7 @@ const Login = ({ navigation }) => {
                         ],
                         (_, { rowsAffected }) => {
                           if (rowsAffected > 0) {
-                            console.log('Usuario insertado con éxito');
+                            //console.log('Usuario insertado con éxito');
                           } else {
                             console.log('Error en la inserción del usuario');
                           }
@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
                         }
                       );
                     } else {
-                      console.log('Usuario ya existe en la base de datos');
+                      //console.log('Usuario ya existe en la base de datos');
                     }
                   },
                   (_, error) => {

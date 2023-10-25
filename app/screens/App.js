@@ -4,6 +4,13 @@ import Modal from 'react-native-modal';
 import {openDatabase} from '../data/db';
 
 const App=({navigation, route})=>{
+  const [pagoConfirmado, setPagoConfirmado] = useState(false);
+
+  const [setIndexToDelete, setSetIndexToDelete] = useState(null);
+
+  const [isPagoModalVisible, setPagoModalVisible] = useState(false);
+  const [seleccionarPagoOpcion, setSeleccionarPagoOpcion] = useState(null);
+
   const [expandedEntregas, setExpandedEntregas] = useState([]);
   const [expandedCobros, setExpandedCobros] = useState([]);
 
@@ -81,10 +88,95 @@ const App=({navigation, route})=>{
   const todosEntregados = entregasCliBorrar.length === 0;
   const todosCobrados = cobrosCliBorrar.length === 0;
 
-  
+  //Modal de pago
+  const abrirModalPago = (index) => {
+    setPagoModalVisible(true);
+    setSeleccionarPagoOpcion(null);
+    setSetIndexToDelete(index);
+  };
+  const manejoOpcionePago = (option) => {
+    setSeleccionarPagoOpcion(option);
+  };
+
+  const confirmPayment = () => {
+    if (seleccionarPagoOpcion === null) {
+      console.log("Debes seleccionar una forma de pago antes de confirmar el pago.");
+    } else {
+      console.log("Pago confirmado:", seleccionarPagoOpcion);
+      setPagoConfirmado(true);
+      setPagoModalVisible(false);
+      eliminarTarjetaEntrega(setIndexToDelete);
+    }
+  };
+  const cambiarFormaDePago = () => {
+    setSeleccionarPagoOpcion(null); // Resetea la forma de pago
+    setPagoConfirmado(false); // Marca el pago como no confirmado
+  };
   return(
       <ScrollView>
       <View style={style.container}>
+      <Modal
+        isVisible={isPagoModalVisible}
+      >
+        <View style={style.paymentOptionsContainer}>
+          <Text style={style.paymentOptionsTitle}>Selecciona una forma de pago</Text>
+          
+          <TouchableOpacity
+            style={[
+              style.paymentOption,
+              seleccionarPagoOpcion === 'efectivo' ? style.seleccionarPagoOpcion : null
+            ]}
+            onPress={() => manejoOpcionePago('efectivo')}
+          >
+            <Text style={style.paymentOptionText}>Efectivo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[
+              style.paymentOption,
+              seleccionarPagoOpcion === 'debito' ? style.seleccionarPagoOpcion : null
+            ]}
+            onPress={() => manejoOpcionePago('debito')}
+          >
+            <Text style={style.paymentOptionText}>Debito</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[
+              style.paymentOption,
+              seleccionarPagoOpcion === 'credito' ? style.seleccionarPagoOpcion : null
+            ]}
+            onPress={() => manejoOpcionePago('credito')}
+          >
+            <Text style={style.paymentOptionText}>Credito</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[
+              style.paymentOption,
+              seleccionarPagoOpcion === 'transferencia' ? style.seleccionarPagoOpcion : null
+            ]}
+            onPress={() => manejoOpcionePago('transferencia')}
+          >
+            <Text style={style.paymentOptionText}>Transferencia</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={style.confirmPaymentButton}
+            onPress={() => {
+              if (pagoConfirmado) {
+                cambiarFormaDePago();
+              } else {
+                confirmPayment();
+              }
+            }}
+          >
+  <Text style={style.confirmPaymentButtonText}>
+    {pagoConfirmado ? 'Cambiar Forma de Pago' : 'Confirmar Pago'}
+  </Text>
+</TouchableOpacity>
+        </View>
+
+      </Modal>
         <TouchableOpacity style={style.buttonMenu} onPress={toggleModal}>
           <Image
             source={require("../assets/menu(1).png")}
@@ -198,13 +290,14 @@ const App=({navigation, route})=>{
                     </Text>
                   </Text>
                   <Text style={style.contenidoInfoCliente}>Lista a entregar:</Text>
+                  <Text style={style.contenidoInfoCliente}>Total:</Text>
                   <View style={style.botonaccion}>
                     <TouchableOpacity
                         style={[
                           style.botonCancelar,
                           { backgroundColor: cliente.estado ? 'gray' : '#A2C579' },
                         ]}
-                        onPress={() => eliminarTarjetaEntrega(index)}
+                        onPress={() => abrirModalPago(index)}
                       >
                         <Text style={style.textEntregar}>Entregar</Text>
                         <Image source={require('../assets/orden(1).png')} />
@@ -506,7 +599,67 @@ const style = StyleSheet.create ({
     fontFamily:'OpenSans-Regular',
      fontSize:20,
      fontWeight:'normal'
-   }
+   },
+   paymentOptionsContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  paymentOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    marginTop:10,
+    width:'100%',
+    height:70,
+    backgroundColor: '#FDB335',
+    borderRadius:10,
+    
+  },
+  selectedPaymentOption: {
+    backgroundColor: '#A2C579', 
+  },
+  paymentOptionText: {
+    marginLeft: 10,
+    fontSize: 18,
+    color:'#0e485e',
+    fontFamily: 'OpenSans-SemiBold'
+  },
+  confirmPaymentButton: {
+    backgroundColor: '#A2C579',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  confirmPaymentButtonText: {
+    color: 'white',
+    fontSize: 18,
+  },
+  paymentOptionsTitle:{
+    fontSize: 23,
+    width:'100%',
+    height:69,
+    color:'#FDB335',
+    borderBottomWidth:2,
+    borderBottomColor:'#0e485e',
+    fontWeight: 'bold',
+    fontFamily: 'OpenSans-SemiBold',
+    textAlign:'center',
+    textAlignVertical:'center',
+    
+  },
+  seleccionarPagoOpcion: {
+    shadowColor: '#FDB335',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    
+    elevation: 24,
+  }
 })
 
 export default App;

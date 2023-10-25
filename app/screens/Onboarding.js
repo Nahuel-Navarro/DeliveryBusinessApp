@@ -54,9 +54,24 @@ function UsuariosDbCarga() {
       });
     });
   }
+function crearTablaEntregasTotales(){ 
+    db.transaction((tx) => {
+        tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS entregasTotales (id INTEGER PRIMARY KEY, fila TEXT, cliente TEXT, fecha TEXT, pago TEXT, total REAL)',
+          [],
+          (tx, result) => {
+            console.log('Tabla entregasTotales creada con éxito');
+          },
+          (error) => {
+            console.error('Error al crear la tabla pedidosTotales', error);
+          }
+        );
+    });
+ }
 const Onboarding = ({navigation}) => {
     useEffect(() => {
         UsuariosDbCarga();
+        crearTablaEntregasTotales();
       }, []);
     return (
         <View style={{flex:1,backgroundColor:'#fff'}} >

@@ -9,9 +9,9 @@ export const getUsuarioByMail = async (formData) => {
             `SELECT * from Usuarios WHERE mail = ? AND contraseña = ? AND rol = ?`,
             [formData.email, formData.password, 'Vendedor'],
             (_, { rows: { _array } }) => {
-                console.log('Usuario encontrado antes del if:', _array[0]);
+                //console.log('Usuario encontrado antes del if:', _array[0]);
               if (_array.length > 0) {
-                console.log('Usuario encontrado:', _array[0]);
+                //console.log('Usuario encontrado:', _array[0]);
                 resolve(_array[0]);
               } else {
                 console.log('Usuario no encontrado');

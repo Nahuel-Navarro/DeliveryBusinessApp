@@ -100,6 +100,9 @@ const App=({navigation, route})=>{
     setSeleccionarPagoOpcion(null); 
     setPagoConfirmado(false); 
   };
+  const navigateToDataCliente = (cliente) => {
+    navigation.navigate('DataCliente', { cli: cliente });
+  };
   return(
       <ScrollView>
       <View style={style.container}>
@@ -118,6 +121,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('efectivo')}
           >
             <Text style={style.paymentOptionText}>Efectivo</Text>
+            <Image
+                source={require('../assets/dinero-en-efectivo.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -128,6 +135,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('debito')}
           >
             <Text style={style.paymentOptionText}>Debito</Text>
+            <Image
+                source={require('../assets/tarjeta-de-credito.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -138,6 +149,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('credito')}
           >
             <Text style={style.paymentOptionText}>Credito</Text>
+            <Image
+                source={require('../assets/tarjetas-de-credito.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -148,6 +163,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('transferencia')}
           >
             <Text style={style.paymentOptionText}>Transferencia</Text>
+            <Image
+                source={require('../assets/transferencia-de-dinero.png')}
+                style={style.imgOptionPay}
+            />  
           </TouchableOpacity>
           <TouchableOpacity
             style={style.confirmPaymentButton}
@@ -194,7 +213,7 @@ const App=({navigation, route})=>{
                   style={style.menuLogo}
                 />
               </View>
-              <TouchableOpacity onPress={()=>navigation.navigate("Clientes")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Clientes", { vendedor: vendedor})} 
                 style={style.optionBottom}>
                     <Image
                       source={require('../assets/cliente.png')}
@@ -202,7 +221,7 @@ const App=({navigation, route})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Prueba')} 
+              <TouchableOpacity onPress={() => navigation.navigate('Prueba', { vendedor: vendedor, datoPersonalizado: miDato })} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}
@@ -247,12 +266,15 @@ const App=({navigation, route})=>{
               onPress={() => toggleCardEntregas(index)}
               key={`${cliente.id}-${index}`}
             >
-              <View style={style.cardHeader}>             
-                <Text style={style.cardTitle}>{cliente.nombre}</Text>
-                <TouchableOpacity style={style.infoCliente}>
-                <Image source={require('../assets/info.png')}/>
-                
-                </TouchableOpacity>
+              <View style={style.cardHeader}>
+                <View style={style.clientNameContainer}>
+                  <Text style={style.cardTitle}>{cliente.nombre}</Text>
+                </View>
+                <View style={style.infoCliente}>
+                  <TouchableOpacity onPress={() => navigateToDataCliente(cliente)}>
+                    <Image source={require('../assets/info.png')} style={style.infoIcon} />
+                  </TouchableOpacity>
+                </View>
               </View>
               {expandedEntregas [index] && (
                 <View style={style.expandedContent}>
@@ -579,8 +601,22 @@ const style = StyleSheet.create ({
     elevation: 24,        
     borderColor: '#0e485e',
     borderWidth: 1.5,
+  },
+  imgOptionPay:{
+    width:25,
+    height:25
+  },
+  clientNameContainer: {
+    flex: 1,
+    alignItems: 'flex-start'
+  },
+  infoCliente: {
+    alignItems: 'flex-end'
+  },
+  infoIcon: {
+    width: 30,
+    height: 30
   }
-
 })
 
 export default App;

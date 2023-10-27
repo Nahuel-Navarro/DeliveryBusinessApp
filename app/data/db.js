@@ -275,7 +275,7 @@ export function createTables(db) {
 
     tx.executeSql(
       `
-        CREATE TABLE IF NOT EXISTS Articulos (
+        CREATE TABLE IF NOT EXISTS productApp (
           id INTEGER PRIMARY KEY,
           articulo TEXT,
           nombre TEXT,
@@ -287,7 +287,7 @@ export function createTables(db) {
       `,
       [],
       (_, result) => {
-        console.log("Tabla Articulos creada con éxito");
+        console.log("Tabla productApp creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Productos
         // tx.executeSql(
@@ -307,7 +307,7 @@ export function createTables(db) {
         
         // Seleccionar y mostrar Productos después de la inserción
         tx.executeSql(
-          "SELECT * FROM Articulos",
+          "SELECT * FROM productApp",
           [],
           (_, { rows }) => {
             

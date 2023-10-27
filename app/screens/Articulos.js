@@ -1,4 +1,4 @@
-import { View, Text } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from "react-native"
 import {openDatabase} from '../data/db';
 import {productosLimpieza} from '../data/product';
 import { useEffect } from "react";
@@ -8,11 +8,11 @@ const db = openDatabase();
 function leerArticulosBD(){
   db.transaction((tx) => {
     tx.executeSql(
-      'SELECT * FROM Articulos',
+      'SELECT * FROM productApp',
       [],
       (_, {rows}) => {
         const productosLimpieza = rows._array
-        console.log('Los Articulos cargados son: ', productosLimpieza)
+        console.log('Los productApp cargados son: ', productosLimpieza)
       },
       (_, error) => {
         console.error("Error al querer leer", error.message);
@@ -24,12 +24,12 @@ function ArticulosSQLite() {
   db.transaction((tx) => {
     productosLimpieza.forEach((productosLimpieza) => {
       tx.executeSql(
-        'SELECT * FROM Articulos WHERE id = ?',
+        'SELECT * FROM productApp WHERE id = ?',
         [productosLimpieza.id],
         (_, { rows }) => {
           if (rows.length === 0) {
             tx.executeSql(
-              'INSERT INTO Articulos (id, articulo, nombre, descripcion, precio, stock, url) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              'INSERT INTO productApp (id, articulo, nombre, descripcion, precio, stock, url) VALUES (?, ?, ?, ?, ?, ?, ?)',
               [
                 productosLimpieza.id,
                 productosLimpieza.articulo,
@@ -43,7 +43,7 @@ function ArticulosSQLite() {
                 if (rowsAffected > 0) {
                   console.log('Articulo insertado con éxito');
                 } else {
-                  console.log('Error en la inserción del articulos');
+                  console.log('Error en la inserción del productApp');
                 }
               },
               (_, error) => {
@@ -71,11 +71,24 @@ const Product = () => {
           leerArticulosBD();
         })
     return(
-        <View>
+      <ScrollView>
+        <View style={style.containerArt}>
             <Text>
                 
             </Text>
         </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <TouchableOpacity>
+        <Image
+          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/5705/5705135.png' }}
+          style={{ width: 200, height: 200 }} // Ajusta el ancho y alto según tu preferencia
+        />
+      </TouchableOpacity>
+    </View>
+      </ScrollView>
     )
 }
+const style = StyleSheet.create ({
+
+})
 export default Product;

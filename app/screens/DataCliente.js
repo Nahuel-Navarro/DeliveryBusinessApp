@@ -31,7 +31,7 @@ const DataCliente = ({route}) => {
                     <Text style={styles.textsmall}>Deuda: $0.00</Text>
                     <Text style={styles.textsmall}>Ultima actualizacion: 10/10/2003</Text>
                     <TouchableOpacity style={{width:"100%", alignItems:'center', justifyContent:'center', marginTop:10, borderRadius:10, borderWidth:3, height:35, borderColor:"#0e485e"}}>
-                        <Text style={{color:"#0e485e", fontSize:15, fontWeight: 'bold'}}>Cerra deuda</Text>
+                        <Text style={{color:"#0e485e", fontSize:15, fontWeight: 'bold'}}>Cerrar deuda</Text>
                     </TouchableOpacity>
 
                 </View>

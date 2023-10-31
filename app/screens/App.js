@@ -42,26 +42,14 @@ const App=({navigation, route})=>{
     function filtrarClientes() {
       db.transaction((tx) => {
         tx.executeSql(
-          'SELECT * FROM Clientes WHERE vendedor = ? AND convent = ?',
-          [vendedor, 'Entregar'],
+          'SELECT * FROM Clientes WHERE vendedor = ?',
+          [vendedor],
           (_, { rows }) => {
             const entregas = rows._array;
             setEntregasCliBorrar(entregas);
           },
           (_, error) => {
             console.error("Error al filtrar entregas", error.message);
-          }
-        );
-    
-        tx.executeSql(
-          'SELECT * FROM Clientes WHERE vendedor = ? AND convent = ?',
-          [vendedor, 'Cobrar'],
-          (_, { rows }) => {
-            const cobros = rows._array;
-            setCobrosCliBorrar(cobros);
-          },
-          (_, error) => {
-            console.error("Error al filtrar cobros", error.message);
           }
         );
       });
@@ -109,14 +97,18 @@ const App=({navigation, route})=>{
     }
   };
   const cambiarFormaDePago = () => {
-    setSeleccionarPagoOpcion(null); // Resetea la forma de pago
-    setPagoConfirmado(false); // Marca el pago como no confirmado
+    setSeleccionarPagoOpcion(null); 
+    setPagoConfirmado(false); 
+  };
+  const navigateToDataCliente = (cliente) => {
+    navigation.navigate('DataCliente', { cli: cliente });
   };
   return(
       <ScrollView>
       <View style={style.container}>
       <Modal
         isVisible={isPagoModalVisible}
+        onBackdropPress={() => setPagoModalVisible(false)}
       >
         <View style={style.paymentOptionsContainer}>
           <Text style={style.paymentOptionsTitle}>Selecciona una forma de pago</Text>
@@ -129,6 +121,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('efectivo')}
           >
             <Text style={style.paymentOptionText}>Efectivo</Text>
+            <Image
+                source={require('../assets/dinero-en-efectivo.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -139,6 +135,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('debito')}
           >
             <Text style={style.paymentOptionText}>Debito</Text>
+            <Image
+                source={require('../assets/tarjeta-de-credito.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -149,6 +149,10 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('credito')}
           >
             <Text style={style.paymentOptionText}>Credito</Text>
+            <Image
+                source={require('../assets/tarjetas-de-credito.png')}
+                style={style.imgOptionPay}
+            /> 
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -159,21 +163,21 @@ const App=({navigation, route})=>{
             onPress={() => manejoOpcionePago('transferencia')}
           >
             <Text style={style.paymentOptionText}>Transferencia</Text>
+            <Image
+                source={require('../assets/transferencia-de-dinero.png')}
+                style={style.imgOptionPay}
+            />  
           </TouchableOpacity>
           <TouchableOpacity
             style={style.confirmPaymentButton}
             onPress={() => {
-              if (pagoConfirmado) {
-                cambiarFormaDePago();
-              } else {
                 confirmPayment();
-              }
             }}
           >
-  <Text style={style.confirmPaymentButtonText}>
-    {pagoConfirmado ? 'Cambiar Forma de Pago' : 'Confirmar Pago'}
-  </Text>
-</TouchableOpacity>
+            <Text style={style.confirmPaymentButtonText}>
+              Confirmar Pago
+            </Text>
+          </TouchableOpacity>
         </View>
 
       </Modal>
@@ -209,7 +213,7 @@ const App=({navigation, route})=>{
                   style={style.menuLogo}
                 />
               </View>
-              <TouchableOpacity onPress={()=>navigation.navigate("Clientes")} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Clientes", { vendedor: vendedor})} 
                 style={style.optionBottom}>
                     <Image
                       source={require('../assets/cliente.png')}
@@ -217,7 +221,7 @@ const App=({navigation, route})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Prueba')} 
+              <TouchableOpacity onPress={() => navigation.navigate('Prueba', { vendedor: vendedor, datoPersonalizado: miDato })} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}
@@ -262,12 +266,15 @@ const App=({navigation, route})=>{
               onPress={() => toggleCardEntregas(index)}
               key={`${cliente.id}-${index}`}
             >
-              <View style={style.cardHeader}>             
-                <Text style={style.cardTitle}>{cliente.nombre}</Text>
-                <TouchableOpacity style={style.infoCliente}>
-                <Image source={require('../assets/info.png')}/>
-                
-                </TouchableOpacity>
+              <View style={style.cardHeader}>
+                <View style={style.clientNameContainer}>
+                  <Text style={style.cardTitle}>{cliente.nombre}</Text>
+                </View>
+                <View style={style.infoCliente}>
+                  <TouchableOpacity onPress={() => navigateToDataCliente(cliente)}>
+                    <Image source={require('../assets/info.png')} style={style.infoIcon} />
+                  </TouchableOpacity>
+                </View>
               </View>
               {expandedEntregas [index] && (
                 <View style={style.expandedContent}>
@@ -315,72 +322,6 @@ const App=({navigation, route})=>{
                 style={style.imgRepartoCompletado}
             />
             <Text style={style.todosEntregadosMessage}>Has entregado todos los pedidos!!</Text>
-          </View>
-         )}
-
-
-    <View style={style.TextTitle}>
-      <Text style={style.div1pedidosText} >Cobros</Text>
-    </View>
-        <View style={style.tarjetasPedidosClientes}>
-          {cobrosCliBorrar.map((cliente, index) => (
-            <TouchableOpacity
-              style={style.cardsButton}
-              onPress={() => toggleCardCobros(index)}
-              key={`${cliente.id}-${index}`}
-            >
-              <View style={style.cardHeader}>             
-                <Text style={style.cardTitle}>{cliente.nombre}</Text>
-                <TouchableOpacity style={style.infoCliente}>
-                <Image source={require('../assets/info.png')}/>
-                
-                </TouchableOpacity>
-              </View>
-              {expandedCobros[index] && (
-                <View style={style.expandedContent}>
-                  <Text style={style.contenidoInfoCliente}>Información del pedido:</Text>
-                  <Text style={style.contenidoInfoCliente}>
-                    Dirección:{' '}
-                    <Text
-                      style={{ color: 'white', textDecorationLine: 'underline', fontWeight:'normal', fontSize:15 }}
-                      onPress={() => handleLinkClick('https://maps.app.goo.gl/i8nKcZv5W4BoAtFD6')}
-                    >
-                      {cliente.direccion}
-                    </Text>
-                  </Text>
-                  <Text style={style.contenidoInfoCliente}>
-                  <Text style={style.contenidoInfoCliente}>Celular: </Text>
-                    <Text
-                         style={{ color: 'white', fontWeight:'normal',fontSize:15 }}
-                      >
-                        {cliente.telefono}
-                    </Text>
-                  </Text>
-                  <Text style={style.contenidoInfoCliente}>Lista a entregar:</Text>
-                  <View style={style.botonaccion}>
-                    <TouchableOpacity
-                        style={[
-                          style.botonCancelar,
-                          { backgroundColor: cliente.estado ? 'gray' : '#A2C579' },
-                        ]}
-                        onPress={() => eliminarTarjetaCobro(index)}
-                      >
-                        <Text style={style.textEntregar}>Entregar</Text>
-                        <Image source={require('../assets/orden(1).png')} />
-                      </TouchableOpacity>
-                  </View>
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-        </View>
-        {todosCobrados && (
-          <View style={style.viewPedidosCompletados}>
-            <Image
-                source={require('../assets/envio-gratis.png')}
-                style={style.imgRepartoCompletado}
-            />
-            <Text style={style.todosCobradosMessage}>Has terminado de cobrar a los clientes!!</Text>
           </View>
          )}
       </View>
@@ -626,7 +567,7 @@ const style = StyleSheet.create ({
     fontFamily: 'OpenSans-SemiBold'
   },
   confirmPaymentButton: {
-    backgroundColor: '#A2C579',
+    backgroundColor: '#0e485e',
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
@@ -650,15 +591,31 @@ const style = StyleSheet.create ({
     
   },
   seleccionarPagoOpcion: {
-    shadowColor: '#FDB335',
+    shadowColor: '#0e485e', 
     shadowOffset: {
-      width: 0,
-      height: 12,
+      width: 100,
+      height: 42,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.00,
-    
-    elevation: 24,
+    shadowOpacity: 0.8, 
+    shadowRadius: 168,
+    elevation: 24,        
+    borderColor: '#0e485e',
+    borderWidth: 1.5,
+  },
+  imgOptionPay:{
+    width:25,
+    height:25
+  },
+  clientNameContainer: {
+    flex: 1,
+    alignItems: 'flex-start'
+  },
+  infoCliente: {
+    alignItems: 'flex-end'
+  },
+  infoIcon: {
+    width: 30,
+    height: 30
   }
 })
 

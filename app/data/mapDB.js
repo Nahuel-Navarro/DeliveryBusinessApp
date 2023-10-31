@@ -76,8 +76,8 @@ export function getMapInfo(db) {
                 [],
                 (_, { rows: { _array } }) => {
                     const mapInfoArray = _array || [];
-                    // Format the data to match the marker object structure
-                    const markers = mapInfoArray.map((MapInfo) => {
+                    // Format the data to match the clientes object structure
+                    const clientess = mapInfoArray.map((MapInfo) => {
                         const latitude = parseFloat(MapInfo.Latitude);
                         const longitude = parseFloat(MapInfo.Longitude);
                         return {
@@ -90,7 +90,7 @@ export function getMapInfo(db) {
                             height: 5,
                         };
                     });
-                    resolve(markers);
+                    resolve(clientess);
                 },
                 (_, error) => {
                     reject(error);

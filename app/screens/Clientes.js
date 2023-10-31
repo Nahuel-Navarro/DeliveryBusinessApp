@@ -15,7 +15,7 @@ function leerClientesBD(){
       [],
       (_, {rows}) => {
         const clientes = rows._array
-        console.log('Los clientes cargados son: ', clientes)
+        //console.log('Los clientes cargados son: ', clientes)
       },
       (_, error) => {
         console.error("Error al querer leer", error.message);
@@ -71,15 +71,21 @@ export function clientesSQLite() {
 
 const Clientes = ({navigation , route}) => {
 
-  const usu = route.params;
-  const vendedor = '001' ;
-  console.log(usu)
+  const usu = route.params?.vendedor || "000";
+  console.log(usu + 'Este es el valor del vendedor')
+  const vendedor = usu;
+  console.log(vendedor)
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
-    const cli = clienteByID(vendedor);
-    setClientes(cli);}, 
-    [vendedor]);
+    clienteByID(vendedor)
+    .then((clientes) => {
+      setClientes(clientes);
+    })
+    .catch((error) => {
+      console.error('Error al obtener clientes:', error);
+    });
+  }, [vendedor]);
     useEffect(() => {
       clientesSQLite();
     }, []);

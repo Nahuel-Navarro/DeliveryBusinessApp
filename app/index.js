@@ -5,7 +5,11 @@ const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator >
+            <Stack.Navigator 
+            screenOptions={{
+              headerShown: false
+            }}>
+              
               
               <Stack.Screen name="Splash" component={Splash} 
               />
@@ -18,9 +22,11 @@ const index = ()=>{
               <Stack.Screen name="Prueba" component={Prueba} />
               <Stack.Screen name="Producto" component={Product} />
               
+
             </Stack.Navigator>
           
   );
+
 }
 
 export default index

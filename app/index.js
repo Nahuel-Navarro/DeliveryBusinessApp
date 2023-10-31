@@ -5,13 +5,12 @@ const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator>
-  
-              <Stack.Screen name="Splash" component={Splash} 
-              />
+            <Stack.Navigator >
+              
+              <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Onboarding" component={Onboarding} />
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="App" component={App}  />
+              <Stack.Screen name="App" component={App} />
               <Stack.Screen name="Clientes" component={Clientes} />
               <Stack.Screen name="DataCliente" component={DataCliente} />
               <Stack.Screen name="Map" component={Map} />

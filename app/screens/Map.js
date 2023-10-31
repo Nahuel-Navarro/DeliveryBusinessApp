@@ -158,7 +158,7 @@ export default function Map({ route }) {
       const initialRegion = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.0922,
+        latitudeDelta: 0.0922, 
         longitudeDelta: 0.0421,
       };
 

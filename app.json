@@ -8,6 +8,14 @@
       "expo-router"
     ],
     "name": "Proyecto2",
-    "slug": "Proyecto2"
+    "android": {
+      "permissions": ["INTERNET"],
+        "config":{
+          "cleartext":{
+            "cleartextTrafficPermitted": true
+            },
+      "slug": "Proyecto2"
+      }
+    }
   }
 }

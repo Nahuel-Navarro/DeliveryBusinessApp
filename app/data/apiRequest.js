@@ -1,48 +1,11 @@
-// export default function callApi() {
-//     const url = "localhost:88/databaseUsuarios"
-//     useEffect(() => {
-//         fetch(url)
-//         .then((resp) => resp.json())
-//         .then((json) => setData(json))
-//         .catch((error) => console.error(error))
-//         .finally(() => setLoading(false));
-//     }, []);
-
-//     <View style={styles.container}>
-//     {loading ? (
-//         <Text>Loading...</Text>
-//     ) : (
-//         data.map((post) => {
-//         return (
-//             <View>
-//             <Text style={styles.title}>{post.title}</Text>
-//             <Text>{post.body}</Text>
-//             </View>
-//         );
-//         })
-//     )}
-//     </View>;
-
-//     const styles = StyleSheet.create({
-//         container: {
-//         flex: 1,
-//         justifyContent: "center",
-//         backgroundColor: "#ecf0f1",
-//         padding: 8,
-//         },
-//         title: {
-//         fontSize: 30,
-//         fontWeight: "bold",
-//         },
-//     });
-// }
-
-// api.js
-
 export default callApi = async (endpoint, method = 'GET', data = null) => {
-  
   try {
-    const urlbase = 'http://192.168.48.223:88/';
+    
+    //const urlbase = 'http://190.210.81.148:33530/';
+     //const urlbase = 'http://192.168.48.250:33533/';
+     const urlbase = 'http://192.168.48.223:88/';
+     //const urlbase = "localhost:88/";
+     
     const url = `${urlbase}${endpoint}`;
     const headers = {
       'Content-Type': 'application/json',
@@ -56,7 +19,7 @@ export default callApi = async (endpoint, method = 'GET', data = null) => {
 
     if (data) {
       options.body = JSON.stringify(data);
-      
+      console.log(data)
     }
     console.log('+' + options.method)
     console.log(url)
@@ -80,6 +43,7 @@ export default callApi = async (endpoint, method = 'GET', data = null) => {
     console.log('despues del json response = '+ jsonResponse)
     return jsonResponse; // Return the entire JSON response
   } catch (error) {
+    console.error('Network request failed:', error.message);
     throw error;
   }
 };

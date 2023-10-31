@@ -5,12 +5,8 @@ const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator 
-            screenOptions={{
-              headerShown: false
-            }}>
-              
-              
+            <Stack.Navigator>
+  
               <Stack.Screen name="Splash" component={Splash} 
               />
               <Stack.Screen name="Onboarding" component={Onboarding} />

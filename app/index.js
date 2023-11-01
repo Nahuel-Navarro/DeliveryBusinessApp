@@ -5,7 +5,7 @@ const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator >
+            <Stack.Navigator>
               
               <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Onboarding" component={Onboarding} />

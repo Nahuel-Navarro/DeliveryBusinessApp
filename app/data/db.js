@@ -324,17 +324,18 @@ export function createTables(db) {
     );
     tx.executeSql(
       `
-        CREATE TABLE IF NOT EXISTS ventasTotales (
+        CREATE TABLE IF NOT EXISTS ventas (
           id INTEGER PRIMARY KEY,
           cliente TEXT,
           fecha DATE,
           total INT,
-          form_pago TEXT
+          form_pago TEXT,
+          vendedor TEXT
         )
       `,
       [],
       (_, result) => {
-        console.log("Tabla ventasTotales creada con éxito");
+        console.log("Tabla ventas creada con éxito");
         
         // Insertar un usuario de ejemplo después de crear la tabla Productos
         // tx.executeSql(
@@ -354,10 +355,11 @@ export function createTables(db) {
         
         // Seleccionar y mostrar Productos después de la inserción
         tx.executeSql(
-          "SELECT * FROM ventasTotales",
+          "SELECT * FROM ventas",
           [],
           (_, { rows }) => {
-            
+            const elrow = rows._array
+            console.log(elrow)
           },
           (_, error) => {
            // console.log("Error al seleccionar productos: " + error.message);

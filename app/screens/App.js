@@ -16,6 +16,8 @@ const App=({navigation, route})=>{
   const [entregasCliBorrar, setEntregasCliBorrar] = useState([]);
 
   const [productosPorCliente, setProductosPorCliente] = useState({});
+
+  const [nextId, setNextId] = useState(1); 
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
   const db = openDatabase();
@@ -114,6 +116,26 @@ const App=({navigation, route})=>{
       setPagoConfirmado(true);
       setPagoModalVisible(false);
       eliminarTarjetaEntrega(setIndexToDelete);
+  
+      const cliente = entregasCliBorrar[setIndexToDelete].nombre;
+      const fecha = new Date().toISOString(); 
+      const total = productosPorCliente[entregasCliBorrar[setIndexToDelete].id]?.precioTotal;
+      const form_pago = seleccionarPagoOpcion;
+      const vendedor = route.params?.vendedor || "000";
+  
+      db.transaction((tx) => {
+        tx.executeSql(
+          "INSERT INTO ventas (id, cliente, fecha, total, form_pago, vendedor) VALUES (?, ?, ?, ?, ?, ?)",
+          [nextId, cliente, fecha, total, form_pago, vendedor],
+          (_, { insertId }) => {
+            console.log("Venta insertada con éxito. Nuevo ID: " + insertId);
+            setNextId(nextId + 1); 
+          },
+          (_, error) => {
+            console.error("Error al insertar venta: " + error.message);
+          }
+        );
+      });
     }
   };
   const navigateToDataCliente = (cliente) => {

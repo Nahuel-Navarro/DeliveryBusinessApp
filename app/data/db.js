@@ -322,7 +322,53 @@ export function createTables(db) {
         //console.log("Error al crear tabla Productos: " + error.message);
       }
     );
-
+    tx.executeSql(
+      `
+        CREATE TABLE IF NOT EXISTS ventasTotales (
+          id INTEGER PRIMARY KEY,
+          cliente TEXT,
+          fecha DATE,
+          total INT,
+          form_pago TEXT
+        )
+      `,
+      [],
+      (_, result) => {
+        console.log("Tabla ventasTotales creada con éxito");
+        
+        // Insertar un usuario de ejemplo después de crear la tabla Productos
+        // tx.executeSql(
+        //   "INSERT INTO Productos (id, articulo, nombre, descripcion, precio, stock) VALUES (null, '88', 'aa', 'aaa', '5000', '5')",
+        //   [],
+        //   (_, { rowsAffected }) => {
+        //     if (rowsAffected > 0) {
+        //       console.log("Inserción exitosa");
+        //     } else {
+        //       console.log("Error en la inserción");
+        //     }
+        //   },
+        //   (_, error) => {
+        //     console.log("Error durante la inserción: " + error.message);
+        //   }
+        // );
+        
+        // Seleccionar y mostrar Productos después de la inserción
+        tx.executeSql(
+          "SELECT * FROM ventasTotales",
+          [],
+          (_, { rows }) => {
+            
+          },
+          (_, error) => {
+           // console.log("Error al seleccionar productos: " + error.message);
+          }
+        );
+        
+      },
+      (_, error) => {
+        //console.log("Error al crear tabla Productos: " + error.message);
+      }
+    );
     tx.executeSql(
       `
         CREATE TABLE IF NOT EXISTS Productos (

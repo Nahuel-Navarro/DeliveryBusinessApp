@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Gif, Prueba, articulos, Product } from './screens/index'
+import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Product, Ventas} from './screens/index'
 
 const Stack = createNativeStackNavigator();
 const index = ()=>{
   return (
           
-            <Stack.Navigator>
+            <Stack.Navigator >
               
               <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Onboarding" component={Onboarding} />
@@ -14,9 +14,8 @@ const index = ()=>{
               <Stack.Screen name="Clientes" component={Clientes} />
               <Stack.Screen name="DataCliente" component={DataCliente} />
               <Stack.Screen name="Map" component={Map} />
-              <Stack.Screen name="Prueba" component={Prueba} />
               <Stack.Screen name="Producto" component={Product} />
-              
+              <Stack.Screen name="ventas" component={Ventas} />
 
             </Stack.Navigator>
           

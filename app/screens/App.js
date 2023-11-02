@@ -12,14 +12,10 @@ const App=({navigation, route})=>{
   const [seleccionarPagoOpcion, setSeleccionarPagoOpcion] = useState(null);
 
   const [expandedEntregas, setExpandedEntregas] = useState([]);
-  const [expandedCobros, setExpandedCobros] = useState([]);
 
   const [entregasCliBorrar, setEntregasCliBorrar] = useState([]);
-  const [cobrosCliBorrar, setCobrosCliBorrar] = useState([]);
 
   const [productosPorCliente, setProductosPorCliente] = useState({});
-  const [productosAleatorios, setProductosAleatorios] = useState([]);
-  const [precioTotal, setPrecioTotal] = useState(0);
   //EXPANDIR O NO EL MODAL DEL MENU
   const [isModalVisible, setModalVisible] = useState(false);
   const db = openDatabase();
@@ -27,74 +23,65 @@ const App=({navigation, route})=>{
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  //EXPANDIR O NO LAS TARJETAS CON LA INFORMACION DEL PEDIDO  
-  const toggleCardEntregas = (index, cliente) => {
+  //FILTRO
+  const vendedor = route.params?.vendedor || "000";
+  function filtrarClientes() {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM Clientes WHERE vendedor = ?',
+        [vendedor],
+        (_, { rows }) => {
+          const entregas = rows._array;
+          const productosPorCliente = {};
+  
+          tx.executeSql(
+            'SELECT * FROM productApp',
+            [],
+            (_, { rows }) => {
+              const productos = rows._array; 
+  
+              entregas.forEach((cliente) => {
+                const { productosAleatorios, precioTotal } = obtenerProductosAleatorios(productos);
+                productosPorCliente[cliente.id] = { productosAleatorios, precioTotal };
+              });
+              setEntregasCliBorrar(entregas);
+              setProductosPorCliente(productosPorCliente);
+            },
+            (_, error) => {
+              console.error("Error al obtener productos de la base de datos", error.message);
+            }
+          );
+        },
+        (_, error) => {
+          console.error("Error al filtrar entregas", error.message);
+        }
+      );
+    });
+  }
+  
+  // Expandir o no las tarjetas
+  const toggleCardEntregas = (index) => {
     const updatedExpandedEntregas = [...expandedEntregas];
     updatedExpandedEntregas[index] = !updatedExpandedEntregas[index];
     setExpandedEntregas(updatedExpandedEntregas);
+  }
+    
+  const obtenerProductosAleatorios = (productos) => {
+    const productosAleatorios = [];
+    let productosDisponibles = [...productos];
+    let precioTotal = 0;
   
-    // Actualiza el estado del cliente con los productos aleatorios y precio correspondientes
-    const { productosAleatorios, precioTotal } = productosPorCliente[cliente.id];
-    setProductosAleatorios(productosAleatorios);
-    setPrecioTotal(precioTotal);
-  };
+    while (productosAleatorios.length < 5 && productosDisponibles.length > 0) {
+      const indiceAleatorio = Math.floor(Math.random() * productosDisponibles.length);
+      const productoAleatorio = productosDisponibles.splice(indiceAleatorio, 1)[0];
 
-
-    //FILTRO
-    const vendedor = route.params?.vendedor || "000";
-    function filtrarClientes() {
-      db.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * FROM Clientes WHERE vendedor = ?',
-          [vendedor],
-          (_, { rows }) => {
-            const entregas = rows._array;
-            const productosPorCliente = {};
-    
-            tx.executeSql(
-              'SELECT * FROM productApp',
-              [],
-              (_, { rows }) => {
-                const productos = rows._array; // Obtén todos los productos de la base de datos
-    
-                entregas.forEach((cliente) => {
-                  const { productosAleatorios, precioTotal } = obtenerProductosAleatorios(
-                    productos
-                  );
-                  productosPorCliente[cliente.id] = { productosAleatorios, precioTotal };
-                });
-    
-                setEntregasCliBorrar(entregas);
-                setProductosPorCliente(productosPorCliente);
-              },
-              (_, error) => {
-                console.error("Error al obtener productos de la base de datos", error.message);
-              }
-            );
-          },
-          (_, error) => {
-            console.error("Error al filtrar entregas", error.message);
-          }
-        );
-      });
+      const stockAleatorio = Math.floor(Math.random() * (productoAleatorio.stock + 1));
+      productosAleatorios.push({...productoAleatorio,stockAleatorio});
+  
+      precioTotal += productoAleatorio.precio * stockAleatorio;
     }
-    
-    const obtenerProductosAleatorios = (productos) => {
-      const productosAleatorios = [];
-      let productosDisponibles = [...productos];
-      let precioTotal = 0;
-    
-      while (productosAleatorios.length < 5 && productosDisponibles.length > 0) {
-        const indiceAleatorio = Math.floor(Math.random() * productosDisponibles.length);
-        const productoAleatorio = productosDisponibles.splice(indiceAleatorio, 1)[0];
-        productosAleatorios.push(productoAleatorio);
-        precioTotal += productoAleatorio.precio;
-      }
-    
-      return { productosAleatorios, precioTotal };
-    };
-    
+    return { productosAleatorios, precioTotal };
+  };
     useEffect(() => {
       filtrarClientes();
     }, [vendedor]);
@@ -106,15 +93,8 @@ const App=({navigation, route})=>{
     setEntregasCliBorrar(updatedClientes);
   };
 
-  const eliminarTarjetaCobro = (i) => {
-    const updatedClientes = [...cobrosCliBorrar];
-    updatedClientes.splice(i, 1);
-    setCobrosCliBorrar(updatedClientes);
-  };
-
   //Este lo que va a hacer es verificar si todos estan entregados
   const todosEntregados = entregasCliBorrar.length === 0;
-  const todosCobrados = cobrosCliBorrar.length === 0;
 
   //Modal de pago
   const abrirModalPago = (index) => {
@@ -136,42 +116,8 @@ const App=({navigation, route})=>{
       eliminarTarjetaEntrega(setIndexToDelete);
     }
   };
-  const cambiarFormaDePago = () => {
-    setSeleccionarPagoOpcion(null); 
-    setPagoConfirmado(false); 
-  };
   const navigateToDataCliente = (cliente) => {
     navigation.navigate('DataCliente', { cli: cliente });
-  };
-
-  //Seleccionar los articulos para la lista de articulos:
-
-  const listaProductos = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM productApp',
-        [],
-        (_, { rows }) => {
-          const productos = rows._array;
-          const productosAleatorios = [];
-          let total = 0;
-
-          while (productosAleatorios.length < 5) {
-            const indiceAleatorio = Math.floor(Math.random() * productos.length);
-            const productoAleatorio = productos[indiceAleatorio];
-            total += productoAleatorio.precio;
-            productosAleatorios.push(productoAleatorio);
-            productos.splice(indiceAleatorio, 1);
-          }
-
-          setProductosAleatorios(productosAleatorios);
-          setPrecioTotal(total);
-        },
-        (_, error) => {
-          console.error("Error al obtener productos de la base de datos", error.message);
-        }
-      );
-    });
   };
   return(
       <ScrollView>
@@ -296,7 +242,7 @@ const App=({navigation, route})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('Prueba', { vendedor: vendedor, datoPersonalizado: miDato })} 
+              <TouchableOpacity onPress={() => navigation.navigate("ventas", { vendedor: vendedor})} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}
@@ -375,12 +321,14 @@ const App=({navigation, route})=>{
                   </Text>
                   <View>
                     <Text style={style.contenidoInfoCliente}>Lista a entregar:</Text>
-                    {productosAleatorios.map((producto) => (
+                    {productosPorCliente[cliente.id]?.productosAleatorios.map((producto) => (
                       <View key={producto.id}>
-                        <Text>-{producto.nombre}</Text>
+                        <Text style={{color:'white'}}>
+                        · {producto.nombre} x {producto.stockAleatorio}
+                        </Text>
                       </View>
                     ))}
-                    <Text style={style.contenidoInfoCliente}>Precio total: ${precioTotal}</Text>
+                    <Text style={style.contenidoInfoCliente}>Precio total: ${productosPorCliente[cliente.id]?.precioTotal}</Text>
                   </View>
                   <View style={style.botonaccion}>
                     <TouchableOpacity

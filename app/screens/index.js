@@ -6,6 +6,6 @@ export {default as Clientes} from './Clientes';
 export {default as DataCliente} from './DataCliente';
 export {default as App} from './App';
 export {default as Map} from './Map';
-export {default as Prueba} from './prueba';
 export {default as Product} from './Articulos';
+export {default as Ventas} from './Ventas'
 

@@ -25,6 +25,22 @@ const App=({navigation, route})=>{
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  console.log(isModalVisible)
+  const getMaxId = (tx) => {
+    return new Promise((resolve, reject) => {
+      tx.executeSql(
+        'SELECT MAX(id) AS maxId FROM ventas',
+        [],
+        (_, { rows }) => {
+          const maxId = rows.item(0).maxId || 0;
+          resolve(maxId);
+        },
+        (_, error) => {
+          reject(error);
+        }
+      );
+    });
+  };
   //FILTRO
   const vendedor = route.params?.vendedor || "000";
   function filtrarClientes() {
@@ -85,6 +101,15 @@ const App=({navigation, route})=>{
     return { productosAleatorios, precioTotal };
   };
     useEffect(() => {
+      db.transaction(async (tx) => {
+        try {
+          const maxId = await getMaxId(tx);
+          setNextId(maxId + 1);
+        } catch (error) {
+          console.error('Error al obtener el ID máximo de ventas:', error.message);
+        }
+      }, []);
+  
       filtrarClientes();
     }, [vendedor]);
 
@@ -107,6 +132,7 @@ const App=({navigation, route})=>{
   const manejoOpcionePago = (option) => {
     setSeleccionarPagoOpcion(option);
   };
+  console.log(nextId)
 
   const confirmPayment = () => {
     if (seleccionarPagoOpcion === null) {
@@ -122,7 +148,6 @@ const App=({navigation, route})=>{
       const total = productosPorCliente[entregasCliBorrar[setIndexToDelete].id]?.precioTotal;
       const form_pago = seleccionarPagoOpcion;
       const vendedor = route.params?.vendedor || "000";
-  
       db.transaction((tx) => {
         tx.executeSql(
           "INSERT INTO ventas (id, cliente, fecha, total, form_pago, vendedor) VALUES (?, ?, ?, ?, ?, ?)",
@@ -141,6 +166,13 @@ const App=({navigation, route})=>{
   const navigateToDataCliente = (cliente) => {
     navigation.navigate('DataCliente', { cli: cliente });
   };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setModalVisible(false);
+    });
+  
+    return unsubscribe;
+  }, [navigation]);
   return(
       <ScrollView>
       <View style={style.container}>
@@ -159,9 +191,9 @@ const App=({navigation, route})=>{
           <TouchableOpacity
             style={[
               style.paymentOption,
-              seleccionarPagoOpcion === 'efectivo' ? style.seleccionarPagoOpcion : null
+              seleccionarPagoOpcion === 'Efectivo' ? style.seleccionarPagoOpcion : null
             ]}
-            onPress={() => manejoOpcionePago('efectivo')}
+            onPress={() => manejoOpcionePago('Efectivo')}
           >
             <Text style={style.paymentOptionText}>Efectivo</Text>
             <Image
@@ -173,9 +205,9 @@ const App=({navigation, route})=>{
           <TouchableOpacity
             style={[
               style.paymentOption,
-              seleccionarPagoOpcion === 'debito' ? style.seleccionarPagoOpcion : null
+              seleccionarPagoOpcion === 'Debito' ? style.seleccionarPagoOpcion : null
             ]}
-            onPress={() => manejoOpcionePago('debito')}
+            onPress={() => manejoOpcionePago('Debito')}
           >
             <Text style={style.paymentOptionText}>Debito</Text>
             <Image
@@ -187,9 +219,9 @@ const App=({navigation, route})=>{
           <TouchableOpacity
             style={[
               style.paymentOption,
-              seleccionarPagoOpcion === 'credito' ? style.seleccionarPagoOpcion : null
+              seleccionarPagoOpcion === 'Credito' ? style.seleccionarPagoOpcion : null
             ]}
-            onPress={() => manejoOpcionePago('credito')}
+            onPress={() => manejoOpcionePago('Credito')}
           >
             <Text style={style.paymentOptionText}>Credito</Text>
             <Image
@@ -201,9 +233,9 @@ const App=({navigation, route})=>{
           <TouchableOpacity
             style={[
               style.paymentOption,
-              seleccionarPagoOpcion === 'transferencia' ? style.seleccionarPagoOpcion : null
+              seleccionarPagoOpcion === 'Transferencia' ? style.seleccionarPagoOpcion : null
             ]}
-            onPress={() => manejoOpcionePago('transferencia')}
+            onPress={() => manejoOpcionePago('Transferencia')}
           >
             <Text style={style.paymentOptionText}>Transferencia</Text>
             <Image

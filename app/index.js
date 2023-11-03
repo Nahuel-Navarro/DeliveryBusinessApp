@@ -3,6 +3,7 @@ import { Splash,Onboarding,Login,Home,Clientes,DataCliente,App,Map, Product, Ven
 import { View, Text} from 'react-native';
 
 const Stack = createNativeStackNavigator();
+const st = 1;
 const index = ()=>{
   return (
           

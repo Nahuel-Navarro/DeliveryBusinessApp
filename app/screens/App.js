@@ -411,11 +411,11 @@ const App=({navigation, route})=>{
           </View>
          )}
       </View>
-      <View style={style.botonAddContainer}>
+{/*      <View style={style.botonAddContainer}>
         <TouchableOpacity style={style.botonAdd}>
           <Text style={style.botonAddText}>Agregar Pedido</Text>
         </TouchableOpacity>
-      </View>
+        </View>*/}
       </ScrollView>
   );
 }

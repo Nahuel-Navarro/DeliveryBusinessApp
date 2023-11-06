@@ -5,7 +5,9 @@
       "bundler": "metro"
     },
     "plugins": ["expo-router"],
-    "name": "Proyecto2",
+    "name": "Pedidos",
+    "version": "1.0.0",
+    "icon":"./app/assets/TruckIcon.png",
     "android": {
       "permissions": ["INTERNET"]
     }

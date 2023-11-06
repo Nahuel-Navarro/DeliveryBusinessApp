@@ -9,16 +9,61 @@ const index = ()=>{
           
             <Stack.Navigator >
               
-              <Stack.Screen name="Splash" component={Splash} />
-              <Stack.Screen name="Onboarding" component={Onboarding} />
-              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen options={{headerShown: false}} name="Splash" component={Splash} />
+              <Stack.Screen options={{headerShown: false}} name="Onboarding" component={Onboarding} />
+              <Stack.Screen options={{headerShown: false}} name="Login" component={Login} />
               <Stack.Screen options={{headerShown: false}} name="App" component={App} />
-              <Stack.Screen  name="Clientes" component={Clientes} />
-              <Stack.Screen name="DataCliente" component={DataCliente} />
-              <Stack.Screen name="Map" component={Map} />
-              <Stack.Screen name="Producto" component={Product} />
-              <Stack.Screen name="ventas" component={Ventas} />
-
+              <Stack.Screen name="Clientes" component={Clientes} options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#0e485e' },
+                headerTintColor: '#FDB335',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontFamily: 'OpenSans-Bold',
+                  fontSize: 25,
+                }  
+              }} />
+              <Stack.Screen name="Informacion" component={DataCliente} options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#0e485e' },
+                headerTintColor: '#FDB335',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontFamily: 'OpenSans-Bold',
+                  fontSize: 25,
+                }  
+              }} />
+              <Stack.Screen name="Mapa" component={Map} options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#0e485e' },
+                headerTintColor: '#FDB335',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontFamily: 'OpenSans-Bold',
+                  fontSize: 25,
+                }  
+              }} />
+              <Stack.Screen name="Productos" component={Product} options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#0e485e' },
+                headerTintColor: '#FDB335',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontFamily: 'OpenSans-Bold',
+                  fontSize: 25,
+                }  
+              }} />
+              <Stack.Screen name="Ventas" component={Ventas} options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#0e485e' },
+                headerTintColor: '#FDB335',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontFamily: 'OpenSans-Bold',
+                  fontSize: 25,
+                }  
+              }} />
+              
             </Stack.Navigator>
           
   );

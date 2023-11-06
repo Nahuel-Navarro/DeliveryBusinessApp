@@ -137,9 +137,6 @@ const Product = () => {
           </View>
         </View>
       </Modal>
-      <View style={style.containerArt}>
-        <Text style={style.textTittle}>Articulos</Text>
-      </View>
       <View style={style.secctionBoddy}>
         {articulosCard.map((producto) => (
           <TouchableOpacity key={producto.id} style={style.productCard} onPress={() => openModal(producto)}>
@@ -171,6 +168,7 @@ const style = StyleSheet.create ({
   secctionBoddy:{
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:30
   },
   productCard:{
     width:'90%',

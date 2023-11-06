@@ -36,7 +36,7 @@ const Ventas = ({ navigation, route }) => {
     }, []);
 
     ventas.forEach((venta) => {
-        const formattedTotal = `$${venta.total}`; // Agregar el signo "$" al total
+        const formattedTotal = `$${venta.total}`;
         tableData.push([
             venta.id.toString(),
             venta.cliente,

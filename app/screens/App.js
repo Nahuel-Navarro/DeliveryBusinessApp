@@ -296,7 +296,7 @@ const App=({navigation, route})=>{
                     />
                 <Text style={style.optionText}>Clientes</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate("ventas", { vendedor: vendedor})} 
+              <TouchableOpacity onPress={() => navigation.navigate("Ventas", { vendedor: vendedor})} 
                 style={style.optionBottom}>
                 <Image
                   source={require('../assets/entrega-de-pedidos.png')}
@@ -306,7 +306,7 @@ const App=({navigation, route})=>{
               </TouchableOpacity>
               <TouchableOpacity 
                 style={style.optionBottom}
-                onPress={()=> navigation.navigate('Producto')}
+                onPress={()=> navigation.navigate('Productos')}
                 >
                 <Image
                   source={require('../assets/carrito-de-supermercado.png')}
@@ -314,7 +314,7 @@ const App=({navigation, route})=>{
                 />  
                 <Text style={style.optionText}>Articulos</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>navigation.navigate("Map",{vendedor:vendedor})} 
+              <TouchableOpacity onPress={()=>navigation.navigate("Mapa",{vendedor:vendedor})} 
                 style={style.optionBottom}
               >
                 <Image

@@ -164,7 +164,7 @@ const App=({navigation, route})=>{
     }
   };
   const navigateToDataCliente = (cliente) => {
-    navigation.navigate('DataCliente', { cli: cliente });
+    navigation.navigate('Informacion', { cli: cliente });
   };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {

@@ -12,6 +12,7 @@
     "@react-native-community/clipboard": "^1.5.1",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.18",
+    "@types/react": "~18.2.14",
     "axios": "^1.5.1",
     "escape-string-regexp": "^5.0.0",
     "expo": "^49.0.13",
@@ -37,11 +38,13 @@
     "react-native-table-component": "^1.2.2",
     "react-native-web": "~0.19.6",
     "react-navigation": "^5.0.0",
-    "router": "^1.3.8"
+    "router": "^1.3.8",
+    "typescript": "^5.1.3"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@babel/plugin-proposal-export-namespace-from": "^7.18.9"
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@types/react-native": "^0.72.6"
   },
   "resolutions": {
     "metro": "^0.73.7",

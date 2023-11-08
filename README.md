@@ -3,6 +3,7 @@ Aplicación Móvil de Gestión de Pedidos y Entregas
 Bienvenido a la Aplicación Móvil de Gestión de Pedidos y Entregas, una potente herramienta desarrollada con React Native y Expo. Esta aplicación te permite administrar eficientemente pedidos y entregas, conectándote a una base de datos SQLite.
 
 Características Destacadas
+
 🔒 Autenticación de Usuarios
 Los usuarios pueden registrarse e iniciar sesión de manera segura, brindando una experiencia personalizada y protegiendo la privacidad de la información.
 

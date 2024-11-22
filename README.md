@@ -1,31 +1,30 @@
-Aplicación Móvil de Gestión de Pedidos y Entregas
+Mobile App for Order and Delivery Management
 
-Bienvenido a la Aplicación Móvil de Gestión de Pedidos y Entregas, una potente herramienta desarrollada con React Native y Expo. Esta aplicación te permite administrar eficientemente pedidos y entregas, conectándote a una base de datos SQLite.
+Welcome to the Mobile App for Order and Delivery Management, a powerful tool developed with React Native and Expo. This app allows you to efficiently manage orders and deliveries, connecting to an SQLite database.
 
-Características Destacadas
+Key Features
+🔒 User Authentication
+Users can securely register and log in, providing a personalized experience and protecting information privacy.
 
-🔒 Autenticación de Usuarios
-Los usuarios pueden registrarse e iniciar sesión de manera segura, brindando una experiencia personalizada y protegiendo la privacidad de la información.
+📦 Order Management
+Easily create and track the status of your orders. Keep full control of pending and delivered orders.
 
-📦 Gestión de Pedidos
-Realiza y sigue el estado de tus pedidos de forma sencilla. Mantén un control completo de los pedidos pendientes y entregados.
+🗺️ Real-Time Location
+Use an interactive map that shows your current location and the location of pending orders. This streamlines delivery logistics and helps you optimize your time.
 
-🗺️ Ubicación en Tiempo Real
-Utiliza un mapa interactivo que muestra tu ubicación actual y la de los pedidos pendientes. Esto facilita la logística de entregas y te ayuda a optimizar tu tiempo.
+📋 Product Catalog
+Browse an extensive list of available products to order. Simplify item selection and speed up the ordering process.
 
-📋 Catálogo de Productos
-Explora una amplia lista de productos disponibles para ordenar. Simplifica la selección de artículos y agiliza el proceso de pedido.
+📂 SQLite Database
+Our app connects to an SQLite database for quick and reliable access to user, order, and product information.
 
-📂 Base de Datos SQLite
-Nuestra aplicación se conecta a una base de datos SQLite para un acceso rápido y confiable a la información de usuarios, pedidos y productos.
+🔍 Customer Segmentation
+We’ve implemented customer segmentation, meaning each user only accesses data related to their customers and orders. This enhances privacy and efficiency in data management.
 
-🔍 Segmentación de Clientes
-Implementamos una segmentación de clientes, lo que significa que cada usuario accede solo a los datos relacionados con sus clientes y pedidos. Esto mejora la privacidad y la eficiencia en la gestión de datos.
+📊 Random Data Generation
+Random data generation is included to test and simulate various scenarios, allowing you to evaluate and adjust your app in different situations.
 
-📊 Generación de Datos Aleatorios
-Hemos incorporado la generación aleatoria de datos para probar y simular diversas situaciones, lo que te permitirá evaluar y ajustar tu aplicación en diferentes escenarios.
+Solo Development
+This project was developed independently, allowing me to take full responsibility for planning, designing, developing, and testing. Working solo on this project provided valuable experience in mobile app development and real-time data management.
 
-Desarrollador en Solitario
-Este proyecto fue desarrollado de forma individual, lo que me permitió asumir la responsabilidad completa de la planificación, diseño, desarrollo y pruebas. Trabajar en este proyecto en solitario me brindó una valiosa experiencia en el desarrollo de aplicaciones móviles y la gestión de datos en tiempo real.
-
-¡Comienza a usar la aplicación hoy mismo y lleva tu negocio de pedidos y entregas al siguiente nivel!
+Start using the app today and take your order and delivery business to the next level!
